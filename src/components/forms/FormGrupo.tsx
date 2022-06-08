@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { GrupoContext } from "../../context/grupo/context";
+import { usePost } from "../../hooks/useFetch";
 import { IFormGrupo } from "../../interface/Grupo";
 
 interface Iprops {
@@ -11,11 +12,13 @@ interface Iprops {
 export const FormGrupo = ({closeModal}: Iprops) => {
 
     const { register, handleSubmit } = useForm<IFormGrupo>()
-    const {postFornecedor, setModal} = useContext(GrupoContext)
+    const {} = useContext(GrupoContext)
+    const {mutate} = usePost("grupos")
+
 
     const onSubmit: SubmitHandler<IFormGrupo> =  async data =>  {
-        await postFornecedor(data)
-        closeModal()
+        mutate()
+          closeModal()
     }
 
     return (
