@@ -20,7 +20,7 @@ interface DataIProps {
 }
 
 const Container = ({ children }: IProps) => {
-  return <table className="w-full h-full flex flex-col">{children}</table>;
+  return <table className="w-full h-full flex flex-col shrink">{children}</table>;
 };
 
 const Head = ({ children }: IProps) => {

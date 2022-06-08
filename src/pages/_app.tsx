@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import { Navbar } from '../components/Navbar'
 import { QueryClientProvider } from 'react-query'
 import { queryClient } from '../services/queryClient'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 function MyApp({ Component, pageProps }: AppProps) {
   
@@ -14,6 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   <Component {...pageProps}/>
   </div>
   <footer className="w-full text-center h-8 bg-base-800"> GCASPP 2022</footer>
+  <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
   </div>
   

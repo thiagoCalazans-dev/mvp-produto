@@ -1,12 +1,11 @@
-import { ReactNode } from "react";
-import { IFormGrupo } from "../../interface/Grupo";
+import { Dispatch, ReactNode } from "react";
+import { IFormGrupo, IGrupo } from "../../interface/Grupo";
 
 export interface IGrupoProviderProps  {
     children: ReactNode;
   };
 
  export  interface IGrupoContext  {
-     postFornecedor: (value: IFormGrupo) => Promise<void>
-      setModal: (newState: boolean) => void
-     modal: boolean
+  selectedData: IGrupo; 
+  setSelectedData: (newState:IGrupo ) => void; 
   };

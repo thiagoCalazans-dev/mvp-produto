@@ -1,28 +1,27 @@
-import { useContext } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { GrupoContext } from "../../context/grupo/context";
-import { usePost } from "../../hooks/useFetch";
-import { IFormGrupo } from "../../interface/Grupo";
+import { useCreate } from "../../../hooks/useFetch";
+import { IFormGrupo } from "../../../interface/Grupo";
+import { Loading } from "../../Loading";
 
 interface Iprops {
     closeModal: () => void
+    showId?: boolean
 }
 
 
-export const FormGrupo = ({closeModal}: Iprops) => {
+export const FormRegisterGrupo = ({closeModal, showId}: Iprops) => {
 
     const { register, handleSubmit } = useForm<IFormGrupo>()
-    const {} = useContext(GrupoContext)
-    const {mutate} = usePost("grupos")
+    const {mutate, isLoading} = useCreate('grupos', 'grupos')
 
 
     const onSubmit: SubmitHandler<IFormGrupo> =  async data =>  {
-        mutate()
-          closeModal()
+            await mutate(data)
+            !isLoading && closeModal()
     }
 
     return (
-        <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>           
             <div className="form-control">
                 <label className="label"htmlFor="">Código:</label>
                 <input className="input" type="text"  {...register("codigo")}/>               
@@ -31,7 +30,7 @@ export const FormGrupo = ({closeModal}: Iprops) => {
                 <label className="label"htmlFor="">Descrição:</label>
                 <input className="input" type="text" {...register("descricao")} />
             </div>
-            <button className="btn mt-4">Salvar</button>
+            <button className="btn mt-4">{isLoading ? <Loading/> : `Salvar`}</button>
         </form>
     )
 }

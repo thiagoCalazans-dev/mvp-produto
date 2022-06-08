@@ -9,10 +9,18 @@ body {
   
   @layer components {
     .btn {
-      @apply  py-2 px-4 bg-brand-700 text-base-100 font-semibold rounded-3xl shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
+      @apply  py-2 px-4 bg-brand-700 text-base-100  font-semibold rounded shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
     }
+
+    .btn-outlined {
+      @apply  py-2 px-4 bg-base-700 text-base-100 border-2 border-contrast-500 font-semibold rounded shadow-md hover:bg-contrast-500 focus:outline-none disabled:opacity-50 transition duration-200;
+    }
+
     .btn-contrast {
       @apply  py-2 px-4 bg-contrast-700 text-zinc-100 font-semibold rounded shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
+    }
+    .btn-danger {
+      @apply  py-2 px-4 bg-red-700 text-zinc-100 font-semibold rounded shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
     }
     .input {
       @apply w-full px-4 py-2 border-0 rounded-md text-sm  bg-base-700 focus:ring-brand-500

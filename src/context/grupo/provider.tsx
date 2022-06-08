@@ -3,39 +3,20 @@ import {IGrupo, IFormGrupo } from "../../interface/Grupo";
 import { IGrupoProviderProps } from "./interface";
 import { GrupoContext } from "./context";
 import ajax from "../../services/ajax";
-import { useModal } from "../../hooks/useModal";
-import { Modal } from "../../components/Modal";
-import { FormGrupo } from "../../components/forms/FormGrupo";
+import { useMutation, useQuery } from "react-query";
+import { queryClient } from "../../services/queryClient";
 
 export const GrupoContextProvider = ({ children }: IGrupoProviderProps) => {
 
-    const [modal, setModal] = useState(false)     
+const [selectedData, setSelectedData] = useState<IGrupo>({} as IGrupo)   
 
 
-    const postFornecedor = async (value: IFormGrupo) => {
-        await ajax.post("grupos", value);  
-      };
-    
-      const updateFornecedor = async (value: IGrupo, id: number) => {
-        await ajax.put(`grupos/${id}`, value);
-        
-      };
-    
-      const deleteFornecedor = async (id: number) => {
-        await ajax.delete(`grupos/${id}`);
-
-      };
-    
-      const findFornecedor = async (id: number) => {
-        await ajax
-          .get(`grupos/${id}`)
-          .then((res) => console.log(res.data.cnpj));
-      };
-
-    return (<GrupoContext.Provider value={{
-       postFornecedor,
-       setModal,
-       modal,      
+   
+ 
+          
+return (<GrupoContext.Provider value={{
+    selectedData,
+    setSelectedData, 
     }}>{children} 
     </GrupoContext.Provider>
     
