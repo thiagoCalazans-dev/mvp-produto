@@ -12,12 +12,33 @@ export const useGet = <T>(payload: string, url: string) => {
   return { data, error, isLoading };
 }
 
-export const useCreate = (payload: string,  url: string) => {
-  return useMutation((data: IFormGrupo) => {
+export const useCreate = <T>(payload: string,  url: string) => {
+  return useMutation((data: T) => {
     return ajax.post(url, data)}, {
     onSuccess: () => queryClient.invalidateQueries(payload)
   })
 } 
+
+export const useRemove = <T>(payload: string,  url: string) => {
+  return useMutation((data: T) => {
+    return ajax.delete(url, data)}, {
+    onSuccess: () => queryClient.invalidateQueries(payload)
+  })
+}
+
+export const useUpdate = <T>(payload: string,  url: string) => {
+  return useMutation((data: T) => {
+    return ajax.put(url, data)}, {
+    onSuccess: () => queryClient.invalidateQueries(payload)
+  })
+} 
+
+       
+ 
+const deleteFornecedor = async (id: number) => {
+  await ajax.delete(`grupos/${id}`);
+};  
+
 
 
 //Optimistic
@@ -41,17 +62,6 @@ export const useCreate = (payload: string,  url: string) => {
 //   })
 // } 
 
-export const useRemove = (payload: string,  url: string, id: number) => {
-  return useMutation((id) => {
-    return ajax.delete(`${url}/${String(id)}`)}, {
-    onSuccess: () => queryClient.invalidateQueries(payload)
-  })
-} 
-       
- 
-const deleteFornecedor = async (id: number) => {
-  await ajax.delete(`grupos/${id}`);
-};  
 
 
 // const update = useMutation(

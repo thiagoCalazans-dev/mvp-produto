@@ -7,5 +7,5 @@ export interface IGrupoProviderProps  {
 
  export  interface IGrupoContext  {
   selectedData: IGrupo; 
-  setSelectedData: (newState:IGrupo ) => void; 
+  updateGrupo: (data: IGrupo) => void
   };

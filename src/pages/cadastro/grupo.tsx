@@ -7,18 +7,21 @@ import { Loading } from "../../components/Loading";
 import { Modal } from "../../components/Modal";
 import { FormRegisterGrupo } from "../../components/forms/Grupo/FormRegisterGrupo";
 import { useModal } from "../../hooks/useModal";
-import { useGet, useRemove } from "../../hooks/useFetch";
-import { useContext, useState } from "react";
-import { GrupoContext } from "../../context/grupo/context";
+import { useGet } from "../../hooks/useFetch";
 import { FormDetailsGrupo } from "../../components/forms/Grupo/FormDetailsGrupo";
+import { useState } from "react";
 
 const Grupo = () => {
 
   const registration = useModal()
   const details = useModal()
-  const {selectedData, setSelectedData} = useContext(GrupoContext)
+  const [selectedData, setSelectedData] = useState<IGrupo>({} as IGrupo)
+  const HandleDetailsClick = (grupo:IGrupo) => {
+    setSelectedData(grupo)
+    details.openModal()
+  }
 
-  
+   
   const { isLoading, error, data } = useGet<IGrupo[]>("grupos", "grupos")
   if (error) return "An error has occurred: " + error.message;
 
@@ -31,29 +34,22 @@ const Grupo = () => {
       <div className="grow flex justify-center items-center"> 
       {isLoading ? <Loading/> :   <Table.Container>          
           <Table.Head>
-            <Table.TitleColumns title="Codigo" 
+            <Table.TitleColumns title="Código" 
             className="max-w-[5rem] shrink text-center"/>
             <Table.TitleColumns title="Descrição" />
             <Table.TitleColumns
               title="Detalhes"
               className="max-w-[5rem] shrink"
-            />   
-              <Table.TitleColumns
-              title="Excluir"
-              className="max-w-[5rem] shrink"
-            />    
-          </Table.Head>          
+            />
+                      </Table.Head>          
           <Table.Body>
             {data?.map((item) => (
               <Table.Row key={item.id}>
                 <Table.Data className="max-w-[5rem] shrink text-center">{item.codigo}</Table.Data>
                 <Table.Data className="grow">{item.descricao}</Table.Data>
                 <Table.Data className="max-w-[5rem] shrink text-center">
-                  <Table.DetailsButton onClick={details.openModal} />
-                </Table.Data>
-                <Table.Data className="max-w-[5rem] shrink text-center">
-                  <Table.DeleteButton onClick={() => console.log(item.id)} />
-                </Table.Data>              
+                  <Table.DetailsButton onClick={() => HandleDetailsClick(item)} />
+                </Table.Data>                          
               </Table.Row>
             ))}
           </Table.Body>
@@ -61,7 +57,7 @@ const Grupo = () => {
          </div>    
          <button className="btn" onClick={registration.openModal}>Cadastrar</button>     
           <Modal modal={registration.modal} closeModal={registration.closeModal}><FormRegisterGrupo closeModal={registration.closeModal}/></Modal>
-          <Modal modal={details.modal} closeModal={details.closeModal}><FormDetailsGrupo closeModal={details.closeModal}/></Modal>
+          <Modal modal={details.modal} closeModal={details.closeModal}><FormDetailsGrupo initialData={selectedData}closeModal={details.closeModal} urlParams={String(selectedData.id)}/></Modal>
          </div>
       </div>
     </GrupoContextProvider>

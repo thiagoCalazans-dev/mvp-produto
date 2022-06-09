@@ -1,18 +1,21 @@
+import { useContext } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { GrupoContext } from "../../../context/grupo/context";
 import { useCreate } from "../../../hooks/useFetch";
-import { IFormGrupo } from "../../../interface/Grupo";
+import { IFormGrupo, IGrupo } from "../../../interface/Grupo";
 import { Loading } from "../../Loading";
 
 interface Iprops {
     closeModal: () => void
-    showId?: boolean
 }
 
 
-export const FormRegisterGrupo = ({closeModal, showId}: Iprops) => {
+
+
+export const FormRegisterGrupo = ({closeModal}: Iprops) => {
 
     const { register, handleSubmit } = useForm<IFormGrupo>()
-    const {mutate, isLoading} = useCreate('grupos', 'grupos')
+    const {mutate, isLoading} = useCreate<IFormGrupo>('grupos', 'grupos')
 
 
     const onSubmit: SubmitHandler<IFormGrupo> =  async data =>  {

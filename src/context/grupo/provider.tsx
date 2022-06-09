@@ -8,7 +8,11 @@ import { queryClient } from "../../services/queryClient";
 
 export const GrupoContextProvider = ({ children }: IGrupoProviderProps) => {
 
-const [selectedData, setSelectedData] = useState<IGrupo>({} as IGrupo)   
+const [selectedData, setSelectedData] = useState<IGrupo>({} as IGrupo)
+
+const updateGrupo = (data: IGrupo) => {
+    setSelectedData({...data})
+}
 
 
    
@@ -16,7 +20,7 @@ const [selectedData, setSelectedData] = useState<IGrupo>({} as IGrupo)
           
 return (<GrupoContext.Provider value={{
     selectedData,
-    setSelectedData, 
+    updateGrupo, 
     }}>{children} 
     </GrupoContext.Provider>
     

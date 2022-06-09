@@ -6,12 +6,10 @@ import type { NextPage } from 'next'
 const Home: NextPage = () => {
 
  
-  return (
-    <div>
-      <main className="text-3xl font-bold underline">
-        Main
-      </main>
-    </div>
+  return (   
+      <main className="h-full flex flex-col justify-center items-center">
+        Bem-Vindo
+      </main>   
   )
 }
 
