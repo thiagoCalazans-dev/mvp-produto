@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
 import { GrupoContext } from "../../../context/grupo/context";
 import { useCreate } from "../../../hooks/useFetch";
 import { IFormGrupo, IGrupo } from "../../../interface/Grupo";
@@ -15,11 +16,11 @@ interface Iprops {
 export const FormRegisterGrupo = ({closeModal}: Iprops) => {
 
     const { register, handleSubmit } = useForm<IFormGrupo>()
-    const {mutate, isLoading} = useCreate<IFormGrupo>('grupos', 'grupos')
+    const {mutate, isLoading} = useCreate<IFormGrupo>('grupos', 'grupos', "Grupo adcionado com sucesso")
 
 
     const onSubmit: SubmitHandler<IFormGrupo> =  async data =>  {
-            await mutate(data)
+            await mutate(data)            
             !isLoading && closeModal()
     }
 

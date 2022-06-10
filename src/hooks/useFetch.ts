@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "react-query";
+import { toast } from "react-toastify";
 import { IFormGrupo } from "../interface/Grupo";
 import ajax from "../services/ajax";
 import { queryClient } from "../services/queryClient";
@@ -12,18 +13,29 @@ export const useGet = <T>(payload: string, url: string) => {
   return { data, error, isLoading };
 }
 
-export const useCreate = <T>(payload: string,  url: string) => {
+export const useCreate = <T>(payload: string,  url: string, onSuccessMessage:string) => {
   return useMutation((data: T) => {
     return ajax.post(url, data)}, {
-    onSuccess: () => queryClient.invalidateQueries(payload)
+    onSuccess: () => {queryClient.invalidateQueries(payload);
+      toast.success(`${onSuccessMessage}`);
+   },
+  onError: (error) => {
+    toast.error(`${error}`)
+  }
   })
 } 
 
 export const useRemove = <T>(payload: string,  url: string) => {
   return useMutation((data: T) => {
     return ajax.delete(url, data)}, {
-    onSuccess: () => queryClient.invalidateQueries(payload)
-  })
+      onSuccess: () => {queryClient.invalidateQueries(payload);
+        toast.success('Removido com sucesso');
+     },
+    onError: (error) => {
+    toast.error('ocorreu um erro' + error)
+    }
+  },
+  )
 }
 
 export const useUpdate = <T>(payload: string,  url: string) => {
@@ -32,14 +44,7 @@ export const useUpdate = <T>(payload: string,  url: string) => {
     onSuccess: () => queryClient.invalidateQueries(payload)
   })
 } 
-
-       
- 
-const deleteFornecedor = async (id: number) => {
-  await ajax.delete(`grupos/${id}`);
-};  
-
-
+     
 
 //Optimistic
 // export const useCreate =<T,U> (payload: string,  url: string) => {
@@ -62,36 +67,3 @@ const deleteFornecedor = async (id: number) => {
 //   })
 // } 
 
-
-
-// const update = useMutation(
-//     async (employee) => {
-//         const { data } = await axios.put("/api/Employee", employee);
-//         return data;
-//     },
-//     {
-//         onSuccess: (updatedEmployee) => {
-//             queryClient.setQueryData("employees", (currentEmployees) =>
-//                 currentEmployees.map(
-//                     (employee) => (employee.id === updatedEmployee.id
-//                         ? updatedEmployee
-//                         : employee)
-//                 )
-//             );
-//         },
-//     }
-// );
-
-// const remove = useMutation(
-//     async (id) => {
-//         const { data } = await axios.delete(`/api/Employee/${id}`);
-//         return data;
-//     },
-//     {
-//         onSuccess: (id) => {
-//             queryClient.setQueryData("employees", (currentEmployees) =>
-//                 currentEmployees.filter((employee) => employee.id !== id)
-//             );
-//         },
-//     }
-// );

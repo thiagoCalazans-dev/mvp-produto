@@ -28,10 +28,10 @@ const Grupo = () => {
   return (
     <GrupoContextProvider>      
       <div className="w-full h-full flex flex-col justify-center items-center">
-      <div className="w-1/2 bg-base-800 h-5/6 p-4 rounded-3xl flex flex-col gap-y-3 min-w-[310px]"> 
+      <div className="w-1/2 bg-base-800 h-5/6 p-4 rounded-xl flex flex-col gap-y-3 min-w-[310px] "> 
      
       <h1 className="font-bold text-center text-3xl">GRUPOS:</h1>
-      <div className="grow flex justify-center items-center"> 
+      <div className="grow flex justify-center items-center overflow-y-auto scrollbar-thumb-base-700 scrollbar-track-transparent scrollbar-thin hover:scrollbar-thumb-brand-500"> 
       {isLoading ? <Loading/> :   <Table.Container>          
           <Table.Head>
             <Table.TitleColumns title="Código" 
