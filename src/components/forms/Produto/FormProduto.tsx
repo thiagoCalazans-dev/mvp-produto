@@ -1,5 +1,5 @@
 import { MagnifyingGlass } from "phosphor-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 import { GrupoContext } from "../../../context/grupo/context";
@@ -8,15 +8,19 @@ import { useModal } from "../../../hooks/useModal";
 import { IFormGrupo, IGrupo } from "../../../interface/Grupo";
 import { IProduto } from "../../../interface/Produto";
 import { Loading } from "../../Loading";
-import { Modal } from "../../Modal";
+
 
 
 export const FormProduto = () => {
+    //states
+    const [selectedGrupo, setSelectedGrupo] = useState<IGrupo>({} as IGrupo)
 
+    //hooks
     const { register, handleSubmit } = useForm<IProduto>()
     const {mutate, isLoading} = useCreate<IProduto>('grupos', 'grupos', "Grupo adcionado com sucesso")
-    const {closeModal, modal, openModal} = useModal()
-
+    const {Modal, openModal} = useModal()
+    
+    //functions
     const onSubmit: SubmitHandler<IProduto> =  async data =>  {
             await mutate(data)           
             
@@ -25,8 +29,7 @@ export const FormProduto = () => {
     return (
         <div className="card">
         <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}> 
-        <h1 className="font-semibold text-center text-3xl">Cadastro Produto:</h1>
-        <div className="form-control">
+         <div className="form-control">
                 <label className="label"htmlFor="">Id:</label>
                 <input disabled className="input" type="text"  {...register("id")}/>               
             </div> 
@@ -35,7 +38,7 @@ export const FormProduto = () => {
                 <div className="flex gap-2">
                 <button type="button" className="btn" onClick={openModal}><MagnifyingGlass/></button>
                 <input className="input w-12" type="text"  {...register("grupoId")}/>
-                <p className="input-outlined">Descricao grupo</p>               
+                <p className="input-outlined">{selectedGrupo.descricao}</p>               
                 </div>
             </div>         
             <div className="form-control">
@@ -48,7 +51,7 @@ export const FormProduto = () => {
             </div>
             <button className="btn mt-4">{isLoading ? <Loading/> : `Salvar`}</button>
         </form>
-        <Modal closeModal={closeModal} modal={modal}>TABLE GRUPOS PESQUISA</Modal>
+        <Modal title="Pesquisa Grupos">sdf</Modal>
         </div>
     )
 }

@@ -1,5 +1,4 @@
 import { Trash } from "phosphor-react";
-import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRemove, useUpdate } from "../../../hooks/useFetch";
 import { IGrupo } from "../../../interface/Grupo";
@@ -16,7 +15,7 @@ interface Iprops {
 export const FormDetailsGrupo = ({closeModal, initialData, urlParams}: Iprops) => {
     
     const { register, handleSubmit } = useForm<IGrupo>({defaultValues: initialData})
-    const {mutate: updateMutate, isLoading} = useUpdate('grupos', `grupos/${urlParams}`)
+    const {mutate: updateMutate, isLoading} = useUpdate('grupos', `grupos/${urlParams}`, "Grupos alterado com sucesso")
     const {mutate: removeMutate} = useRemove('grupos', `grupos/${urlParams}`)   
 
     const onSubmit: SubmitHandler<IGrupo> =  async grupo =>  {

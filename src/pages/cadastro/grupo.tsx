@@ -1,10 +1,7 @@
 import { IGrupo } from "../../interface/Grupo";
 import { GrupoContextProvider } from "../../context/grupo/provider";
-import { useQuery } from "react-query";
-import ajax from "../../services/ajax";
 import Table from "../../components/Table";
 import { Loading } from "../../components/Loading";
-import { Modal } from "../../components/Modal";
 import { FormRegisterGrupo } from "../../components/forms/Grupo/FormRegisterGrupo";
 import { useModal } from "../../hooks/useModal";
 import { useGet } from "../../hooks/useFetch";
@@ -28,8 +25,7 @@ const Grupo = () => {
   return (
     <GrupoContextProvider>      
       <div className="w-full h-full flex flex-col justify-center items-center">
-      <div className="w-1/2 bg-base-800 h-5/6 p-4 rounded-xl flex flex-col gap-y-3 min-w-[310px] "> 
-     
+      <div className="w-1/2 bg-base-800 h-5/6 p-4 rounded-xl flex flex-col gap-y-3 min-w-[310px] ">      
       <h1 className="font-bold text-center text-3xl">GRUPOS:</h1>
       <div className="grow flex justify-center items-center overflow-y-auto scrollbar-thumb-base-700 scrollbar-track-transparent scrollbar-thin hover:scrollbar-thumb-brand-500"> 
       {isLoading ? <Loading/> :   <Table.Container>          
@@ -56,8 +52,8 @@ const Grupo = () => {
          </Table.Container>    }
          </div>    
          <button className="btn" onClick={registration.openModal}>Cadastrar</button>     
-          <Modal modal={registration.modal} closeModal={registration.closeModal}><FormRegisterGrupo closeModal={registration.closeModal}/></Modal>
-          <Modal modal={details.modal} closeModal={details.closeModal}><FormDetailsGrupo initialData={selectedData}closeModal={details.closeModal} urlParams={String(selectedData.id)}/></Modal>
+          <registration.Modal><FormRegisterGrupo closeModal={registration.closeModal}/></registration.Modal>
+          <details.Modal><FormDetailsGrupo initialData={selectedData}closeModal={details.closeModal} urlParams={String(selectedData.id)}/></details.Modal>
          </div>
       </div>
     </GrupoContextProvider>

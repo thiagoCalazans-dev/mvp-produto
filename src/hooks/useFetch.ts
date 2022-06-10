@@ -38,10 +38,15 @@ export const useRemove = <T>(payload: string,  url: string) => {
   )
 }
 
-export const useUpdate = <T>(payload: string,  url: string) => {
+export const useUpdate = <T>(payload: string,  url: string, onSuccessMessage:string) => {
   return useMutation((data: T) => {
     return ajax.put(url, data)}, {
-    onSuccess: () => queryClient.invalidateQueries(payload)
+      onSuccess: () => {queryClient.invalidateQueries(payload);
+        toast.success(`${onSuccessMessage}`);
+     },
+    onError: (error) => {
+      toast.error(`${error}`)
+    }
   })
 } 
      
