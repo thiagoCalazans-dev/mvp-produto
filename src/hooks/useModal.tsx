@@ -1,18 +1,18 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { Children, Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { X } from 'phosphor-react'
 
 
-type Iprops = {
+export type IpropsModal = {
   title?: string
-  children: React.ReactNode
+  children: React.ReactNode 
 }
 
 interface useModal  {
     closeModal: () => void,
     openModal: () => void,   
-    Modal: ({ title, children }: Iprops) => JSX.Element
+    Modal: ({ title, children }: IpropsModal) => JSX.Element 
 }
 
 
@@ -22,7 +22,7 @@ export const useModal = () : useModal => {
     const openModal = () =>   setModal(true)
 
 
-const Modal = ({title, children}: Iprops) => {
+const Modal = ({title, children}: IpropsModal) => {
  
  return (
     <>

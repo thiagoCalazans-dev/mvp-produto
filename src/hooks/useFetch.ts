@@ -13,6 +13,15 @@ export const useGet = <T>(payload: string, url: string) => {
   return { data, error, isLoading };
 }
 
+export const useGetById = <T>(payload: string, id: string, url: string) => {
+  const { data, error, isLoading } = useQuery<T, Error>([payload, id], async () => {
+    const { data } = await ajax.get(`${url}/${id}`);
+    return data;
+  });
+
+  return { data, error, isLoading };
+}
+
 export const useCreate = <T>(payload: string,  url: string, onSuccessMessage:string) => {
   return useMutation((data: T) => {
     return ajax.post(url, data)}, {

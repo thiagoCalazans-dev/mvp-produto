@@ -1,9 +1,14 @@
-import { ChatCenteredText, Trash } from "phosphor-react";
+import { ChatCenteredText, Cursor, Trash } from "phosphor-react";
 import React, { ReactNode } from "react";
 
 interface IProps {
   children: JSX.Element | JSX.Element[] | undefined | string | number | any;
 } 
+
+interface RowIProps {
+  onDoubleClick?: () => void
+  children: JSX.Element | JSX.Element[] | undefined | string | number | any;
+}
 
 interface ButtonIProps {
     onClick?: () => void;
@@ -45,9 +50,9 @@ const Data = ({ className, children }: DataIProps) => {
   return <td className={`w-full text-center ${className}`}>{children}</td>;
 };
 
-const Row = ({ children }: IProps) => {
+const Row = ({ children, onDoubleClick }: RowIProps) => {
   return (
-    <tr className="h-auto flex justify-around border-b-2  hover:bg-base-700">
+    <tr className="h-auto flex justify-around border-b-2 py-1 hover:bg-base-700" onDoubleClick={onDoubleClick}>
       {children}
     </tr>
   );
@@ -75,6 +80,18 @@ export const DetailsButton = ({ onClick }: ButtonIProps) => {
   );
 };
 
+
+export const SelectButton = ({ onClick }: ButtonIProps) => {
+  return (
+    <button
+      onClick={onClick}
+      className="hover:bg-brand-500 transition-all rounded-full p-1"
+    >
+      <Cursor />
+    </button>
+  );
+};
+
 const Table = {
   Container,
   Head,
@@ -84,6 +101,7 @@ const Table = {
   Data,
   DeleteButton,
   DetailsButton,
+  SelectButton,
 };
 
 export default Table;
