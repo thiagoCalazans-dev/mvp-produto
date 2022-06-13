@@ -2,41 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-    @apply bg-base-900 bg-opacity-95 text-base-100
+  @apply bg-base-900 bg-opacity-95 text-base-100;
+}
+
+h1 {
+  @apply font-bold text-center text-3xl;
+}
+
+@layer components {
+  .btn {
+    @apply py-2 px-4 bg-brand-700 text-base-100  font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
   }
-  
-  @layer components {
-    .btn {
-      @apply  py-2 px-4 bg-brand-700 text-base-100  font-semibold rounded shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
-    }
 
-    .btn-outlined {
-      @apply  py-2 px-4 bg-base-700 text-base-100 border-2 border-base-500 font-semibold rounded shadow-md hover:bg-brand-500 focus:outline-none disabled:opacity-50 transition duration-200;
-    }
+  .btn-outlined {
+    @apply py-2 px-4 bg-base-700 text-base-100 border-2 border-base-500 font-semibold rounded-lg shadow-md hover:bg-brand-500 focus:outline-none disabled:opacity-50 transition duration-200;
+  }
 
-    .btn-contrast {
-      @apply  py-2 px-4 bg-contrast-700 text-zinc-100 font-semibold rounded shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
-    }
-    .btn-danger {
-      @apply  py-2 px-4 bg-red-700 text-zinc-100 font-semibold rounded shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
-    }
-    .card {
-      @apply bg-base-800 p-5 rounded-lg
-    }
-    .input {
-      @apply w-full px-4 py-2 border-0 rounded-md text-sm  bg-base-700 focus:ring-brand-500 disabled:text-brand-500 disabled:font-extrabold
-    }
-    .input-outlined {
-      @apply w-full py-2 px-4 border rounded-lg border-base-700 text-sm
-    }
-    .label {
-      @apply text-sm font-normal
-    }
-    .progress-bar {
-      @apply font-semibold
-    }
+  .btn-contrast {
+    @apply py-2 px-4 bg-contrast-700 text-zinc-100 font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
+  }
+  .btn-danger {
+    @apply py-2 px-4 bg-red-700 text-zinc-100 font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
+  }
+  .card {
+    @apply bg-base-800 p-5 rounded-lg;
+  }
+  .input {
+    @apply w-full px-4 py-2 border-0 rounded-lg text-sm  bg-base-700 focus:ring-brand-500 disabled:text-brand-500 disabled:font-extrabold;
+  }
+  .input-outlined {
+    @apply w-full py-2 px-4 border rounded-lg border-base-700 text-sm;
+  }
+  .label {
+    @apply text-sm font-normal;
+  }
+  .progress-bar {
+    @apply font-semibold;
+  }
   /* ... */
-  }
-  
+}
