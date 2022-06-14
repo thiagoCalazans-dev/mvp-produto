@@ -2,37 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-base-900 bg-opacity-95 text-base-100;
-}
-
+@layer base {
+  body {
+    @apply bg-light-300 bg-opacity-95 text-light-900 dark:text-dark-100 dark:bg-dark-900;
+  },
 h1 {
   @apply font-bold text-center text-3xl;
 }
+}
+
+@layer utilities {
+  .bg-base-dark {
+    @apply bg-light-700 dark:bg-dark-700
+  }
+  .bg-base-default {
+    @apply bg-light-500 dark:bg-dark-500
+  }
+  .bg-base-light {
+    @apply bg-light-300 dark:bg-dark-300
+  }
+}
+
 
 @layer components {
-  .btn {
-    @apply py-2 px-4 bg-brand-700 text-base-100  font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
+  .border-light {
+    @apply border-[1px] border-light-500
   }
-
-  .btn-outlined {
-    @apply py-2 px-4 bg-base-700 text-base-100 border-2 border-base-500 font-semibold rounded-lg shadow-md hover:bg-brand-500 focus:outline-none disabled:opacity-50 transition duration-200;
+  .btn {
+    @apply py-2 px-4 bg-brand-500 text-light-100  font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
+  }
+    .btn-outlined {
+    @apply py-2 px-4 bg-light-500 text-light-100 border-2 border-light-500 font-semibold rounded-lg shadow-md hover:bg-brand-500 focus:outline-none disabled:opacity-50 transition duration-200;
   }
 
   .btn-contrast {
-    @apply py-2 px-4 bg-contrast-700 text-zinc-100 font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
+    @apply py-2 px-4 bg-contrast-500 text-light-100 font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
   }
   .btn-danger {
-    @apply py-2 px-4 bg-red-700 text-zinc-100 font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
+    @apply py-2 px-4 bg-red-500 text-light-100 font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
   }
   .card {
-    @apply bg-base-800 p-5 rounded-lg;
+    @apply bg-light-700 p-5 rounded-lg;
   }
   .input {
-    @apply w-full px-4 py-2 border-0 rounded-lg text-sm  bg-base-700 focus:ring-brand-500 disabled:text-brand-500 disabled:font-extrabold;
+    @apply w-full px-4 py-2 border-0 rounded-lg text-sm  bg-light-500 focus:ring-brand-500 disabled:text-brand-500 disabled:font-extrabold;
   }
   .input-outlined {
-    @apply w-full py-2 px-4 border rounded-lg border-base-700 text-sm;
+    @apply w-full py-2 px-4 border rounded-lg border-light-500 text-sm;
   }
   .label {
     @apply text-sm font-normal;

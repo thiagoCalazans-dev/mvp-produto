@@ -35,7 +35,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   <div className="grow">
   <Component {...pageProps}/>
   </div>
-  <footer className="w-full text-center h-8 bg-base-800"> GCASPP 2022</footer>
+  <footer className="flex items-center justify-center w-full  h-12 font-semibold bg-light-100
+dark:bg-dark-500 border-light dark:border-dark-500">GCASPP - 2022</footer>
   <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
   <ToastContainer 

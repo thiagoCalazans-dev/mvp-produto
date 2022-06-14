@@ -18,15 +18,15 @@ const Navitens = {
 
 export const Navbar = () => {
   return (
-    <div className="w-screen flex justify-between bg-base-800 py-4 px-4 ">
-      <h1 className="font-bold text-3xl border-b-4 border-brand-500 ">  G-ALMOX  </h1>
+    <div className="bg-light-100 flex justify-between border-light p-3 z-10 dark:bg-dark-500 dark:border-dark-500">
+     <Link href="/"><a className="font-bold text-3xl ">  G-ALMOX  </a></Link> 
       <ul className="flex items-center">
         {Object.entries(Navitens).map(([navmenu, navitens]) => {
           return (
             <li key={navmenu} className="px-2">
               <Menu as="div" className="relative inline-block text-left">
                 <Menu.Button
-                  className={`bg-brand-500 font-bold rounded-md px-4 py-2 text-sm  hover:bg-opacity-30 flex  items-end gap-2`}
+                  className={`font-semibold  px-4 py-2 text-sm  ring-light-500 dark:ring-dark-200 ring-1 rounded-lg flex  items-end gap-2`}
                 >
                   {navmenu} <CaretDown weight="bold" />
                 </Menu.Button>
@@ -39,15 +39,15 @@ export const Navbar = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="flex flex-col  w-auto min-w-full absolute right-0 mt-2 origin-top-right rounded-md bg-base-700 shadow-lg p-2 ">
+                  <Menu.Items className="flex flex-col  w-auto min-w-full absolute right-0 mt-2 origin-top-right rounded-md bg-light-300 dark:bg-dark-500 dark:border-dark-200 border-light-700 border-[1px] shadow-lg">
                     {Object.entries(navitens).map(([navitem, value]) => {
                       return (
                         <Menu.Item key={navitem}>
                           {({ active }) => (
                             <div
                               className={`${
-                                active && "bg-brand-500"
-                              } flex items-center rounded-md px-2 py-2`}
+                                active && "bg-base-dark"
+                              } flex items-center w-full px-2 my-1`}
                             >
                               <Link href={value.href}>
                                 <a className="grow">{value.name}</a>
