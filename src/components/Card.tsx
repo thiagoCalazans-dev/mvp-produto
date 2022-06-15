@@ -1,9 +1,10 @@
 import { ReactNode } from "react"
 
 interface ICardProps {
-    children: ReactNode
+    children: ReactNode;
+    className: string;
 }
 
-export const Card = ({children}: ICardProps) => {
-    return <div className="bg-light-100 border-[1px] border-light-700 dark:bg-dark-500 p-5 rounded-lg">{children}</div>
+export const Card = ({children, className}: ICardProps) => {
+    return <div className={`card ${className}`}>{children}</div>
 }

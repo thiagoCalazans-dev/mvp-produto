@@ -51,8 +51,8 @@ const Modal = ({title, children}: IpropsModal) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-auto h-auto transform overflow-hidden rounded-2xl bg-base-800 px-5 pb-5 transition-all ">
-                  <button type="button"  onClick={closeModal} className="hover:bg-brand-500 transition-all rounded-full p-1 relative top-2 left-[95%]"><X/></button>
+                <Dialog.Panel className="w-auto h-auto transform overflow-hidden rounded-lg bg-brand-secondary dark:bg-dark-500  border-base px-5 pb-5 transition-all ">
+                  <button type="button"  onClick={closeModal} className="btn transition-all rounded-full p-1 relative top-2 left-[95%]"><X color="#FFFFFF" /></button>
                   {title && <Dialog.Title
                     as="h3"
                     className="font-semibold text-center text-3xl"                   

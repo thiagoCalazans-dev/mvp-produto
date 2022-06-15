@@ -24,7 +24,7 @@ const Navitens = {
 
 export const Navbar = () => {
   return (
-    <header className="bg-brand-secondary-light flex justify-between py-2 z-10 dark:bg-dark-500 dark:border-dark-500">
+    <header className="bg-brand-secondary flex justify-between py-2 z-10 dark:bg-dark-500 dark:border-dark-500">
      <Link href="/"><a><h1 className="font-bold color-base text-3xl ml-3">G-LOGO</h1></a></Link> 
       <ul className="flex items-center">
         {Object.entries(Navitens).map(([navmenu, navitens]) => {

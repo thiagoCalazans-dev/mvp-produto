@@ -7,6 +7,7 @@ import { useModal } from "../../hooks/useModal";
 import { useGet } from "../../hooks/useFetch";
 import { FormDetailsGrupo } from "../../components/forms/Grupo/FormDetailsGrupo";
 import { useState } from "react";
+import { Card } from "../../components/Card";
 
 const Grupo = () => {
 
@@ -25,7 +26,7 @@ const Grupo = () => {
   return (
     <GrupoContextProvider>      
       <div className="w-full h-full flex flex-col justify-center items-center">
-      <div className="w-1/2 bg-base-800 h-5/6 p-4 rounded-xl flex flex-col gap-y-3 min-w-[310px] ">      
+      <Card className="w-1/2 h-5/6 flex flex-col gap-y-3 min-w-[310px] " >      
       <h1 className="font-bold text-center text-3xl">GRUPOS:</h1>
       <div className="grow flex justify-center items-center overflow-y-auto scrollbar-thumb-base-700 scrollbar-track-transparent scrollbar-thin hover:scrollbar-thumb-brand-500"> 
       {isLoading ? <Loading/> :   <Table.Container>          
@@ -54,7 +55,7 @@ const Grupo = () => {
          <button className="btn" onClick={registration.openModal}>Cadastrar</button>     
           <registration.Modal><FormRegisterGrupo closeModal={registration.closeModal}/></registration.Modal>
           <details.Modal><FormDetailsGrupo initialData={selectedData}closeModal={details.closeModal} urlParams={String(selectedData.id)}/></details.Modal>
-         </div>
+         </Card>
       </div>
     </GrupoContextProvider>
   );
