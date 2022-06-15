@@ -14,19 +14,25 @@ const Navitens = {
       href: "/cadastro/produto",
     },
   },
+  Relatórios: {
+    1: {
+      name: "Estoque",
+      href: "/relatorios/estoque",
+    },
+  },
 };
 
 export const Navbar = () => {
   return (
-    <div className="bg-light-100 flex justify-between border-light p-3 z-10 dark:bg-dark-500 dark:border-dark-500">
-     <Link href="/"><a className="font-bold text-3xl ">  G-ALMOX  </a></Link> 
+    <div className="bg-brand-secondary-light flex justify-between border-light border-b-[1px] p-3 z-10 dark:bg-dark-500 dark:border-dark-500">
+     <Link href="/"><a className="font-bold text-3xl color-base ">  G-ALMOX  </a></Link> 
       <ul className="flex items-center">
         {Object.entries(Navitens).map(([navmenu, navitens]) => {
           return (
             <li key={navmenu} className="px-2">
               <Menu as="div" className="relative inline-block text-left">
                 <Menu.Button
-                  className={`font-semibold  px-4 py-2 text-sm  ring-light-500 dark:ring-dark-200 ring-1 rounded-lg flex  items-end gap-2`}
+                  className={`font-semibold color-base px-4 py-2   hover:ring-light-500 dark:ring-dark-200 hover:ring-1 rounded-lg flex  items-end gap-2`}
                 >
                   {navmenu} <CaretDown weight="bold" />
                 </Menu.Button>
@@ -39,7 +45,7 @@ export const Navbar = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="flex flex-col  w-auto min-w-full absolute right-0 mt-2 origin-top-right rounded-md bg-light-300 dark:bg-dark-500 dark:border-dark-200 border-light-700 border-[1px] shadow-lg">
+                  <Menu.Items className="font-medium color-base flex flex-col  w-auto min-w-full absolute right-0 mt-2 origin-top-right rounded-md bg-light-300 dark:bg-dark-500 dark:border-dark-200 border-light-700 border-[1px] shadow-lg">
                     {Object.entries(navitens).map(([navitem, value]) => {
                       return (
                         <Menu.Item key={navitem}>

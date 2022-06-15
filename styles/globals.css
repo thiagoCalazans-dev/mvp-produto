@@ -21,6 +21,12 @@ h1 {
   .bg-base-light {
     @apply bg-light-300 dark:bg-dark-300
   }
+  .border-base {
+    @apply border-light-700 border-[1px] dark:bg-dark-500 dark:border-dark-200
+  }
+  .color-base {
+    @apply text-brand-primary dark:text-dark-100
+  }
 }
 
 
@@ -29,10 +35,10 @@ h1 {
     @apply border-[1px] border-light-500
   }
   .btn {
-    @apply py-2 px-4 bg-brand-500 text-light-100  font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
+    @apply py-2 px-4 bg-brand-primary text-light-100  font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
   }
     .btn-outlined {
-    @apply py-2 px-4 bg-light-500 text-light-100 border-2 border-light-500 font-semibold rounded-lg shadow-md hover:bg-brand-500 focus:outline-none disabled:opacity-50 transition duration-200;
+    @apply py-2 px-4 bg-light-500 text-light-100 border-2 border-light-500 font-semibold rounded-lg shadow-md hover:bg-brand-primary focus:outline-none disabled:opacity-50 transition duration-200;
   }
 
   .btn-contrast {
@@ -45,7 +51,7 @@ h1 {
     @apply bg-light-700 p-5 rounded-lg;
   }
   .input {
-    @apply w-full px-4 py-2 border-0 rounded-lg text-sm  bg-light-500 focus:ring-brand-500 disabled:text-brand-500 disabled:font-extrabold;
+    @apply w-full px-4 py-2 border-0 rounded-lg text-sm  bg-light-500 focus:ring-brand-primary disabled:text-brand-primary disabled:font-extrabold;
   }
   .input-outlined {
     @apply w-full py-2 px-4 border rounded-lg border-light-500 text-sm;
