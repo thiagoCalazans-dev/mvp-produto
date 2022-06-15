@@ -6,6 +6,7 @@ import { queryClient } from '../services/queryClient'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
+import { Footer } from '../components/Footer'
 
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -35,8 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   <div className="grow">
   <Component {...pageProps}/>
   </div>
-  <footer className="flex items-center justify-center w-full text-brand-primary  h-12 font-semibold bg-brand-secondary-light
-dark:bg-dark-500 border-light dark:border-dark-500">GCASPP - 2022</footer>
+  <Footer/>
   <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
   <ToastContainer 

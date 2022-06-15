@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-light-300 bg-opacity-95 text-light-900 dark:text-dark-100 dark:bg-dark-900;
+    @apply bg-light-300 bg-opacity-95 text-light-900 dark:text-dark-100 dark:bg-dark-700;
   },
 h1 {
   @apply font-bold text-center text-3xl;
@@ -22,7 +22,7 @@ h1 {
     @apply bg-light-300 dark:bg-dark-300
   }
   .border-base {
-    @apply border-light-700 border-[1px] dark:bg-dark-500 dark:border-dark-200
+    @apply border-light-700 border-[1px] dark:border-dark-200
   }
   .color-base {
     @apply text-brand-primary dark:text-dark-100
@@ -31,19 +31,13 @@ h1 {
 
 
 @layer components {
-  .border-light {
-    @apply border-[1px] border-light-500
-  }
   .btn {
     @apply py-2 px-4 bg-brand-primary text-light-100  font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
   }
     .btn-outlined {
     @apply py-2 px-4 bg-light-500 text-light-100 border-2 border-light-500 font-semibold rounded-lg shadow-md hover:bg-brand-primary focus:outline-none disabled:opacity-50 transition duration-200;
   }
-
-  .btn-contrast {
-    @apply py-2 px-4 bg-contrast-500 text-light-100 font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
-  }
+  
   .btn-danger {
     @apply py-2 px-4 bg-red-500 text-light-100 font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
   }

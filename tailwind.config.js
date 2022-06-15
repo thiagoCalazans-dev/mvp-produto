@@ -22,11 +22,7 @@ module.exports = {
           900: "#010409",
                },
         contrast: {
-          100: "#FAFAFA",
-          300: "#ff9c33",
-          500: "#cc6900",
-          700: "#994f00",
-          900: "#663500",
+          primary: "#cc6900",
         },
         light: {            
             100: "#FAFAFA",            
@@ -46,5 +42,6 @@ module.exports = {
   },
   plugins: [require("@tailwindcss/forms"),
   require('tailwind-scrollbar'),
+  require('tailwindcss-textshadow'),
 ],
 }
