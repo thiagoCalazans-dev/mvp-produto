@@ -6,6 +6,7 @@ import { useGet } from "../../hooks/useFetch";
 import { useModal } from "../../hooks/useModal";
 import { IProduto } from "../../interface/Produto";
 import { FormProduto } from "../../components/forms/Produto/FormRegisterProduto";
+import { Card } from "../../components/Card";
 
 const Produto = () => {
 
@@ -30,9 +31,9 @@ const Produto = () => {
 
   return (
     <ProdutoContextProvider>  
-    <main className="w-full h-full flex flex-col justify-center items-center">
-      <section className="w-1/2 bg-base-800 h-5/6 p-4 rounded-xl flex flex-col gap-y-3 min-w-[310px] ">
-        <h1>Produtos:</h1>
+    <main className="w-full h-full flex flex-col justify-center items-center p-5">
+      <Card className="w-auto h-full p-4 rounded-xl flex flex-col gap-y-3 min-w-[310px] ">
+        <h1 className="font-bold text-center text-3xl">Produtos:</h1>
         <div className="grow flex justify-center items-center overflow-y-auto scrollbar-thumb-base-700 scrollbar-track-transparent scrollbar-thin hover:scrollbar-thumb-brand-500">
           {isLoading ? (
             <Loading />
@@ -72,7 +73,7 @@ const Produto = () => {
         <button className="btn" type="button" onClick={openModal}>
           Cadastrar
         </button>
-      </section>
+      </Card>
       <section>
         <Modal title="Cadastro Produto">
           <FormProduto closeOnSubmit={closeModal}/>

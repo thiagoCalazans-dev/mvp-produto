@@ -25,26 +25,26 @@ const Grupo = () => {
 
   return (
     <GrupoContextProvider>      
-      <div className="w-full h-full flex flex-col justify-center items-center">
-      <Card className="w-1/2 h-5/6 flex flex-col gap-y-3 min-w-[310px] " >      
+      <div className="w-full h-full flex flex-col justify-center items-center p-5">
+      <Card className="w-auto h-5/6 flex flex-col gap-y-3 min-w-[310px]" >      
       <h1 className="font-bold text-center text-3xl">GRUPOS:</h1>
       <div className="grow flex justify-center items-center overflow-y-auto scrollbar-thumb-base-700 scrollbar-track-transparent scrollbar-thin hover:scrollbar-thumb-brand-500"> 
       {isLoading ? <Loading/> :   <Table.Container>          
           <Table.Head>
             <Table.TitleColumns title="Código" 
-            className="max-w-[5rem] shrink text-center"/>
-            <Table.TitleColumns title="Descrição" />
+            className="max-w-[5rem] shrink text-left border-r-base"/>
+            <Table.TitleColumns className="text-left border-r-base" title="Descrição" />
             <Table.TitleColumns
               title="Detalhes"
-              className="max-w-[5rem] shrink"
+              className="max-w-[5rem] shrink rounded-t-lg"
             />
                       </Table.Head>          
           <Table.Body>
             {data?.map((item) => (
               <Table.Row key={item.id}>
-                <Table.Data className="max-w-[5rem] shrink text-center">{item.codigo}</Table.Data>
-                <Table.Data className="grow">{item.descricao}</Table.Data>
-                <Table.Data className="max-w-[5rem] shrink text-center">
+                <Table.Data className="max-w-[5rem] shrink text-center border-r-base">{item.codigo}</Table.Data>
+                <Table.Data className="grow border-r-base max-w-[300px]">{item.descricao}</Table.Data>
+                <Table.Data className="max-w-[5rem] shrink text-center px-1">
                   <Table.DetailsButton onClick={() => HandleDetailsClick(item)} />
                 </Table.Data>                          
               </Table.Row>

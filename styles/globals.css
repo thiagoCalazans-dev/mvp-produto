@@ -24,6 +24,24 @@ h1 {
   .border-base {
     @apply border-light-700 border-[1px] dark:border-dark-200
   }
+  .border-y-base {
+    @apply border-light-700 border-y-[1px] dark:border-dark-200
+  }
+  .border-x-base {
+    @apply border-light-700 border-x-[1px] dark:border-dark-200
+  }
+  .border-t-base {
+    @apply border-light-700 border-t-[1px] dark:border-dark-200
+  }
+  .border-b-base {
+    @apply border-light-700 border-b-[1px] dark:border-dark-200
+  }
+  .border-r-base {
+    @apply border-light-700 border-r-[1px] dark:border-dark-200
+  }
+  .border-l-base {
+    @apply border-light-700 border-y-[1px] dark:border-dark-200
+  }
   .color-base {
     @apply text-brand-primary dark:text-dark-100
   }
@@ -44,8 +62,9 @@ h1 {
   .btn-danger {
     @apply py-2 px-4 bg-red-500 text-light-100 font-semibold rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none disabled:opacity-50 transition duration-200;
   } 
+
   .input {
-    @apply w-full text-dark-900 px-4 py-2 border-0 rounded-lg text-sm  bg-light-300 dark:bg-dark-700 border-base focus:ring-brand-primary disabled:text-brand-primary disabled:font-extrabold;
+    @apply w-full text-dark-900 dark:text-light-100 px-4 py-2 border-0 rounded-lg text-sm  bg-light-300 dark:bg-dark-700 border-base focus:ring-brand-primary disabled:text-brand-primary disabled:font-extrabold dark:disabled:text-brand-primary-light;
   }
    .label {
     @apply text-brand-primary font-semibold dark:text-dark-100;

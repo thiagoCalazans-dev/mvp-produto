@@ -45,8 +45,8 @@ export const FormDetailsGrupo = ({closeModal, initialData, urlParams}: Iprops) =
                 <input className="input" type="text" {...register("descricao")} />
             </div>
             <div className="flex w-full gap-x-2 mt-4">
-            <button type="submit" className="btn-outlined grow">Editar</button>  
-            <button type="button" onClick={() => HandleDeleteClick()} className="btn-contrast"><Trash/></button>        
+            <button type="submit" className="btn grow">Editar</button>  
+            <button type="button" onClick={() => HandleDeleteClick()} className="btn-danger"><Trash/></button>        
             </div>
         </form>         
         </>      
