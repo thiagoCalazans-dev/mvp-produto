@@ -1,9 +1,13 @@
-import { ChatCenteredText, Cursor, Trash } from "phosphor-react";
+import { ArrowFatLineLeft, ArrowFatLineRight, ChatCenteredText, Cursor, Trash } from "phosphor-react";
 import React, { ReactNode } from "react";
 
 interface IProps {
   children: JSX.Element | JSX.Element[] | undefined | string | number | any;
+  className?: string
 } 
+interface IFooterProps {
+  className?: string
+}
 
 interface RowIProps {
   onDoubleClick?: () => void
@@ -25,13 +29,13 @@ interface DataIProps {
 }
 
 const Container = ({ children }: IProps) => {
-  return <table className="table-auto w-full h-full flex flex-col  shrink">{children}</table>;
+  return <table className="table-auto w-full h-full flex flex-col border-base rounded-lg  shrink">{children}</table>;
 };
 
 const Head = ({ children }: IProps) => {
   return (
     <thead>
-      <tr className="flex h-auto border-base rounded-t-lg bg-brand-primary text-light-100 truncate">
+      <tr className="flex h-auto border-b-base rounded-t-lg bg-brand-primary text-light-100 truncate">
         {children}
       </tr>
     </thead>
@@ -39,11 +43,11 @@ const Head = ({ children }: IProps) => {
 };
 
 const TitleColumns = ({ className, title }: TitleIProps) => {
-  return <th className={`w-full px-1 ${className}`}>{title}</th>;
+  return <th className={`w-full px-1  ${className}`}>{title}</th>;
 };
 
-const Body = ({ children }: IProps) => {
-  return <tbody>{children}</tbody>;
+const Body = ({ children, className }: IProps) => {
+  return <tbody className={className}>{children}</tbody>;
 };
 
 const Data = ({ className, children }: DataIProps) => {
@@ -56,6 +60,24 @@ const Row = ({ children, onDoubleClick }: RowIProps) => {
       {children}
     </tr>
   );
+};
+const Footer = ({ className }: IFooterProps) => {
+  return <tfoot className="h-auto border-t-base rounded-b-lg bg-brand-primary text-light-100 truncate">
+    <tr className="flex justify-center items-center" >
+      <td>
+        <button className="bg-light-300 p-1 rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none
+            transition duration-200"><ArrowFatLineLeft  size={16} color="#00466f" weight="fill"/></button>    
+      </td>
+      <td className="flex gap-x-2 items-center justify-center h-auto">
+        <input type="text" className="input w-7 h-7 item-center"/>
+        <span>de x.length</span> 
+      </td>
+      <td>
+        <button className="bg-light-300 p-1 rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none
+            transition duration-200"><ArrowFatLineRight  size={16} color="#00466f" weight="fill"/></button>    
+      </td>
+    </tr>
+  </tfoot>;
 };
 
 const DeleteButton = ({ onClick }: ButtonIProps) => {
@@ -102,6 +124,7 @@ const Table = {
   DeleteButton,
   DetailsButton,
   SelectButton,
+  Footer,
 };
 
 export default Table;
