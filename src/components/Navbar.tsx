@@ -54,7 +54,7 @@ dark:bg-dark-500 dark:border-dark-500`}>
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-100"
                 >
-                  <Menu.Items className="md:absolute font-medium color-base flex flex-col w-full mt-2 origin-top-right rounded-lg bg-light-300 dark:bg-dark-500 dark:border-dark-200 border-light-700 border-[1px] shadow-lg">
+                  <Menu.Items className="md:absolute py-1 font-medium color-base flex flex-col w-full mt-2 origin-top-right rounded-lg bg-light-300 dark:bg-dark-500 dark:border-dark-200 border-light-700 border-[1px] shadow-lg">
                     {Object.entries(navitens).map(([navitem, value]) => {
                       return (
                         <Menu.Item key={navitem}>
@@ -62,7 +62,7 @@ dark:bg-dark-500 dark:border-dark-500`}>
                             <div
                               className={`${
                                 active && "bg-base-dark"
-                              } w-full text-center md:text-left px-2 my-1`}                              
+                              } w-full text-center md:text-left px-2`}                              
                             >
                               <Link href={value.href}>
                                 <a onClick={() => setOpenMenu(false)} className="grow">{value.name}</a>
