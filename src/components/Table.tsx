@@ -28,8 +28,8 @@ interface DataIProps {
     children: JSX.Element | JSX.Element[] | undefined | string | number;
 }
 
-const Container = ({ children }: IProps) => {
-  return <table className="table-auto w-full h-full flex flex-col border-base rounded-lg  shrink">{children}</table>;
+const Container = ({ children, className }: IProps) => {
+  return <table className={`table-auto w-full h-full flex flex-col border-base rounded-lg shrink ${className}`}>{children}</table>;
 };
 
 const Head = ({ children }: IProps) => {

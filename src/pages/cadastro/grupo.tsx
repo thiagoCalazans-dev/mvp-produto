@@ -24,7 +24,7 @@ const Grupo = () => {
   return (
     <GrupoContextProvider>
       <div className="w-full h-full flex flex-col justify-center items-center py-5 px-16">
-        <Card className="flex flex-col gap-y-3 min-w-[310px]">
+        <Card className="flex flex-col gap-y-3 max-w-[900px]">
           <h1 className="font-bold text-center text-3xl">GRUPOS:</h1>
           <div className="grow flex justify-center items-center overflow-y-auto scrollbar-thumb-base-700 scrollbar-track-transparent scrollbar-thin hover:scrollbar-thumb-brand-500">
             {isLoading || isFetching? (
