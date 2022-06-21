@@ -35,7 +35,7 @@ const Container = ({ children }: IProps) => {
 const Head = ({ children }: IProps) => {
   return (
     <thead>
-      <tr className="flex h-auto border-b-base rounded-t-lg bg-brand-primary text-light-100 truncate">
+      <tr className="flex h-auto w-full border-b-base rounded-t-lg bg-brand-primary text-light-100 truncate">
         {children}
       </tr>
     </thead>
@@ -43,7 +43,7 @@ const Head = ({ children }: IProps) => {
 };
 
 const TitleColumns = ({ className, title }: TitleIProps) => {
-  return <th className={`w-full px-1  ${className}`}>{title}</th>;
+  return <th className={`px-1  ${className}`}>{title}</th>;
 };
 
 const Body = ({ children, className }: IProps) => {
@@ -51,12 +51,12 @@ const Body = ({ children, className }: IProps) => {
 };
 
 const Data = ({ className, children }: DataIProps) => {
-  return <td className={`w-full text-left px-1 ${className} truncate`}>{children}</td>;
+  return <td className={`text-left px-1 ${className} truncate`}>{children}</td>;
 };
 
 const Row = ({ children, onDoubleClick }: RowIProps) => {
   return (
-    <tr className="flex text-ellipsis h-auto justify-around border-x-[1px] border-b-[1px] border-light-700 dark:border-dark-200 hover:bg-base-dark whitespace-nowrap" onDoubleClick={onDoubleClick}>
+    <tr className="flex text-ellipsis h-auto border-x-[1px] border-b-[1px] border-light-700 dark:border-dark-200 hover:bg-base-dark whitespace-nowrap" onDoubleClick={onDoubleClick}>
       {children}
     </tr>
   );

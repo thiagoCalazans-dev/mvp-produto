@@ -5,12 +5,12 @@ import ajax from "../services/ajax";
 import { queryClient } from "../services/queryClient";
 
 export const useGet = <T>(payload: string, url: string) => {
-  const { data, error, isLoading } = useQuery<T, Error>(payload, async () => {
+  const { data, error, isLoading, isFetching } = useQuery<T, Error>(payload, async () => {
     const { data } = await ajax.get(url);
     return data;
   });
 
-  return { data, error, isLoading };
+  return { data, error, isLoading, isFetching };
 }
 
 export const useGetById = <T>(payload: string, id: string, url: string) => {
@@ -29,7 +29,8 @@ export const useCreate = <T>(payload: string,  url: string, onSuccessMessage:str
       toast.success(`${onSuccessMessage}`);
    },
   onError: (error) => {
-    toast.error(`${error}`)
+    toast.error(`ocorreu um erro`)
+    console.log(error)
   }
   })
 } 
@@ -41,7 +42,8 @@ export const useRemove = <T>(payload: string,  url: string) => {
         toast.success('Removido com sucesso');
      },
     onError: (error) => {
-    toast.error('ocorreu um erro' + error)
+    toast.error('ocorreu um erro')
+    console.log(error)
     }
   },
   )
@@ -54,7 +56,8 @@ export const useUpdate = <T>(payload: string,  url: string, onSuccessMessage:str
         toast.success(`${onSuccessMessage}`);
      },
     onError: (error) => {
-      toast.error(`${error}`)
+      toast.error('ocorreu um erro')
+      console.log(error)
     }
   })
 } 

@@ -18,7 +18,7 @@ const Grupo = () => {
     details.openModal();
   };
 
-  const { isLoading, error, data } = useGet<IGrupo[]>("grupos", "grupos");
+  const { isLoading, error, data, isFetching } = useGet<IGrupo[]>("grupos", "grupos");
   if (error) return "An error has occurred: " + error.message;
 
   return (
@@ -27,34 +27,34 @@ const Grupo = () => {
         <Card className="flex flex-col gap-y-3 min-w-[310px]">
           <h1 className="font-bold text-center text-3xl">GRUPOS:</h1>
           <div className="grow flex justify-center items-center overflow-y-auto scrollbar-thumb-base-700 scrollbar-track-transparent scrollbar-thin hover:scrollbar-thumb-brand-500">
-            {isLoading ? (
+            {isLoading || isFetching? (
               <Loading />
             ) : (
               <Table.Container>
                 <Table.Head>
                   <Table.TitleColumns
                     title="Código"
-                    className="max-w-[5rem] shrink text-left border-r-base"
+                    className="w-20 text-center border-r-base"
                   />
                   <Table.TitleColumns
-                    className="text-left border-r-base"
+                    className="text-left border-r-base grow "
                     title="Descrição"
                   />
                   <Table.TitleColumns
                     title="Detalhes"
-                    className="max-w-[5rem] shrink rounded-t-lg"
+                    className="w-20 shrink rounded-t-lg"
                   />
                 </Table.Head>
                 <Table.Body>
                   {data?.map((item) => (
                     <Table.Row key={item.id}>
-                      <Table.Data className="max-w-[5rem] shrink text-center border-r-base">
+                      <Table.Data className="w-20 shrink text-center border-r-base">
                         {item.codigo}
                       </Table.Data>
-                      <Table.Data className="grow border-r-base max-w-[300px]">
+                      <Table.Data className="grow border-r-base">
                         {item.descricao}
                       </Table.Data>
-                      <Table.Data className="max-w-[5rem] shrink text-center px-1">
+                      <Table.Data className="w-20 shrink text-center px-1">
                         <Table.DetailsButton
                           onClick={() => HandleDetailsClick(item)}
                         />
