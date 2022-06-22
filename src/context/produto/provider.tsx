@@ -27,10 +27,9 @@ export const ProdutoContextProvider = ({ children }: IProdutoProviderProps) => {
 
       const handleCodigoGrupoBlur = async () => {
         if (selectedGrupo.codigo !== 0) {
-          const { data } = await ajax.get(`grupos/codigo${selectedGrupo.codigo}`);
-          setSelectedGrupo(data);
-        }
-      };  
+          const {data} = await (ajax.get(`grupos/codigo${selectedGrupo.codigo}`))
+          console.log(data)
+        }}
         
                 
     return (<ProdutoContext.Provider value={{

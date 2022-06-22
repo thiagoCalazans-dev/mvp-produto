@@ -48,8 +48,8 @@ const onSubmit: SubmitHandler<IFormProduto> = async (data) => {
   }, [setInputGrupoId]);
 
   return (
-    <div className="card">
-      <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+    <>
+         <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-control">
           <label className="label" htmlFor="">
             Id:
@@ -92,6 +92,6 @@ const onSubmit: SubmitHandler<IFormProduto> = async (data) => {
        <Modal title="Pesquisa Grupos">
         <GrupoSearchTable/>
       </Modal>
-    </div>
+  </>
   );
 };

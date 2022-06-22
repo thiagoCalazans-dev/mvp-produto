@@ -64,7 +64,11 @@ h1 {
   } 
 
   .input {
-    @apply w-full text-dark-900 dark:text-light-100 px-4 py-2 border-0 rounded-lg text-sm  bg-light-300 dark:bg-dark-700 border-base focus:ring-brand-primary disabled:text-brand-primary disabled:font-extrabold dark:disabled:text-brand-primary-light;
+    @apply w-full text-dark-900 dark:text-light-100 px-4 py-2 border-0 rounded-lg text-sm  bg-light-300 dark:bg-dark-700 border-base disabled:opacity-50 focus:ring-brand-primary disabled:text-brand-primary disabled:font-extrabold dark:disabled:text-brand-primary-light;
+  }
+
+  .input-outlined {
+    @apply w-full text-dark-900 dark:text-light-100 px-4 py-2 border-0 rounded-lg text-sm  bg-transparent border-base focus:ring-brand-primary disabled:opacity-50 disabled:text-brand-primary disabled:font-extrabold dark:disabled:text-brand-primary-light;
   }
    .label {
     @apply text-brand-primary font-semibold dark:text-dark-100;
