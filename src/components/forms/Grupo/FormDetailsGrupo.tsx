@@ -6,10 +6,10 @@ import { IGrupo } from "../../../interface/Grupo";
 import { Loading } from "../../Loading";
 
 interface Iprops {
-  closeModal: () => void;
-  initialData: IGrupo;
-  urlParams: string;
-  isFetching: boolean;
+  closeModal?: () => void;
+  initialData?: IGrupo 
+  urlParams?: string;
+  isFetching?: boolean;
 }
 
 export const FormDetailsGrupo = ({
@@ -27,22 +27,24 @@ export const FormDetailsGrupo = ({
     "Grupos alterado com sucesso",
     closeModal
   );
+
+  const encaminhar = () => {
+    console.log("removeu")
+  }
   const { mutate: removeMutate, isLoading: removeLoading } = useRemove(
     "grupos",
     `grupos/${urlParams}`,
-    closeModal
+    encaminhar
   );
 
   const onSubmit: SubmitHandler<IGrupo> = async (grupo) => {
-    await updateMutate(grupo);  
-   
+    await updateMutate(grupo);    
  
   };
 
   const HandleDeleteClick = async () => {
-    console.log(initialData);
     await removeMutate(initialData);
-    !isFetching && closeModal();
+    !isFetching && closeModal && closeModal();
   };
 
   return (

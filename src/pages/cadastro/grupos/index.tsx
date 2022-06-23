@@ -1,22 +1,26 @@
-import { IGrupo } from "../../interface/Grupo";
-import { GrupoContextProvider } from "../../context/grupo/provider";
-import Table from "../../components/Table";
-import { Loading, TableLoading } from "../../components/Loading";
-import { FormRegisterGrupo } from "../../components/forms/Grupo/FormRegisterGrupo";
-import { useModal } from "../../hooks/useModal";
-import { useGet } from "../../hooks/useFetch";
-import { FormDetailsGrupo } from "../../components/forms/Grupo/FormDetailsGrupo";
+import { IGrupo } from "../../../interface/Grupo";
+import { GrupoContextProvider } from "../../../context/grupo/provider";
+import Table from "../../../components/Table";
+import { Loading, TableLoading } from "../../../components/Loading";
+import { FormRegisterGrupo } from "../../../components/forms/Grupo/FormRegisterGrupo";
+import { useModal } from "../../../hooks/useModal";
+import { useGet } from "../../../hooks/useFetch";
+import { FormDetailsGrupo } from "../../../components/forms/Grupo/FormDetailsGrupo";
 import { useState } from "react";
-import { Card } from "../../components/Card";
+import { Card } from "../../../components/Card";
+import { useRouter } from "next/router";
 
 const Grupo = () => {
   const registration = useModal();
   const details = useModal();
+  const router = useRouter()
   const [selectedData, setSelectedData] = useState<IGrupo>({} as IGrupo);
   const HandleDetailsClick = (grupo: IGrupo) => {
     setSelectedData(grupo);
     details.openModal();
   };
+
+  console.log("asPath:" + router.asPath)
 
   const { isLoading, error, data, isFetching } = useGet<IGrupo[]>(
     "grupos",
@@ -59,7 +63,12 @@ const Grupo = () => {
                       </Table.Data>
                       <Table.Data className="w-20 shrink text-center px-1">
                         <Table.DetailsButton
-                          onClick={() => HandleDetailsClick(item)}
+                        onClick={() => router.push(`${router.asPath}/${item.id}`) }
+                          // onClick={() => HandleDetailsClick(item)}
+                        />
+                          <Table.DetailsButton
+                        // onClick={() => router.push(`${router.asPath}/${item.id}`) }
+                        onClick={() => HandleDetailsClick(item)}
                         />
                       </Table.Data>
                     </Table.Row>

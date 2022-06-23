@@ -1,12 +1,12 @@
 import { useState } from "react";
-import {ProdutoContextProvider} from "../../context/produto/provider"
-import { Loading, TableLoading } from "../../components/Loading";
-import Table from "../../components/Table";
-import { useGet } from "../../hooks/useFetch";
-import { useModal } from "../../hooks/useModal";
-import { IProduto } from "../../interface/Produto";
-import { FormProduto } from "../../components/forms/Produto/FormRegisterProduto";
-import { Card } from "../../components/Card";
+import {ProdutoContextProvider} from "../../../context/produto/provider"
+import { Loading, TableLoading } from "../../../components/Loading";
+import Table from "../../../components/Table";
+import { useGet } from "../../../hooks/useFetch";
+import { useModal } from "../../../hooks/useModal";
+import { IProduto } from "../../../interface/Produto";
+import { FormProduto } from "../../../components/forms/Produto/FormRegisterProduto";
+import { Card } from "../../../components/Card";
 
 const Produto = () => {
 

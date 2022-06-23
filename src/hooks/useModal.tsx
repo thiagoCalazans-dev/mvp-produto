@@ -16,8 +16,8 @@ interface useModal  {
 }
 
 
-export const useModal = () : useModal => {
-    const [modal, setModal] = useState(false)   
+export const useModal = (initialState: boolean = false) : useModal => {
+    const [modal, setModal] = useState(initialState)   
     const closeModal = () =>    setModal(false)
     const openModal = () =>   setModal(true)
 

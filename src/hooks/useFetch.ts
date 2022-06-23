@@ -1,7 +1,9 @@
+import { useRouter } from "next/router";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
 import ajax from "../services/ajax";
 import { queryClient } from "../services/queryClient";
+
 
 export const useGet = <T>(payload: string, url: string) => {
   const { data, error, isLoading, isFetching } = useQuery<T, Error>(payload, async () => {
@@ -12,20 +14,22 @@ export const useGet = <T>(payload: string, url: string) => {
   return { data, error, isLoading, isFetching };
 }
 
-export const useGetById = <T>(payload: string, id: string, url: string) => {
+
+export const useGetById = <T>(payload:string, baseUrl:string, id?:string | string[]) => {
   const { data, error, isLoading } = useQuery<T, Error>([payload, id], async () => {
-    const { data } = await ajax.get(`${url}/${id}`);
+    const { data } = await ajax.get(`${baseUrl}/${id}`);
     return data;
   });
 
   return { data, error, isLoading };
 }
 
-export const useCreate = <T>(payload: string,  url: string, onSuccessMessage:string) => {
+export const useCreate = <T>(payload: string,  url: string, onSuccessMessage:string, closeModal?: () => void) => {
   return useMutation((data: T) => {
     return ajax.post(url, data)}, {
     onSuccess: () => {queryClient.invalidateQueries(payload);
       toast.success(`${onSuccessMessage}`);
+      closeModal && closeModal();
    },
   onError: (error: Error) => {
     toast.error(error.name)
@@ -34,13 +38,15 @@ export const useCreate = <T>(payload: string,  url: string, onSuccessMessage:str
   })
 } 
 
-export const useRemove = <T>(payload: string,  url: string, closeModal?: () => void) => {
+export const useRemove = <T>(payload: string,  url: string, encaminhar: () => void, id?:string, closeModal?: () => void ) => {
   return useMutation((data: T) => {
-    return ajax.delete(url, data)}, {
+    const fullUrl = `${url}/${id}`   
+    return ajax.delete(fullUrl, data)}, {
       onSuccess: () => {queryClient.invalidateQueries(payload);
       toast.success('Removido com sucesso');
       closeModal && closeModal();
-     },
+      encaminhar && encaminhar()
+      },
     onError: (error: Error) => {
     toast.error('ocorreu um erro' + error.message)
     console.log(error)

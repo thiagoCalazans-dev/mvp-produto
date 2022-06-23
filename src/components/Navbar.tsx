@@ -7,11 +7,11 @@ const Navitens = {
   Cadastro: {
     1: {
       name: "Grupo",
-      href: "/cadastro/grupo",
+      href: "/cadastro/grupos",
     },
     2: {
       name: "Produto",
-      href: "/cadastro/produto",
+      href: "/cadastro/produtos",
     },
   },
   Relatórios: {
