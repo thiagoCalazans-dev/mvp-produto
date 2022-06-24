@@ -15,7 +15,7 @@ const GrupoDetail = () => {
 
 const router = useRouter()
 const {id} = router.query
-const {data} = useGetById<IGrupo>("grupos", "grupos", id)
+const {data, isLoading} = useGetById<IGrupo>("grupos", "grupos", id)
 
 useEffect(() => {
     if (data) {
@@ -68,11 +68,10 @@ const { register, handleSubmit, setValue, getValues } = useForm<IGrupo>({
   };
 
 return (
-  <GrupoContextProvider>
     <main className="w-full h-full flex flex-col justify-center items-center py-5 px-16">
       <Card className="flex w-auto h-auto flex-col gap-y-3 items-center max-w-[900px]">
-        <h1 className="font-bold text-center text-3xl">Grupo:</h1>       
-        <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="font-bold text-center text-3xl">Grupo:</h1>  
+        {isLoading ?  <Loading/> :   <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-control">
         <label className="label" htmlFor="id">
           Id:
@@ -114,10 +113,11 @@ return (
         )}
       </div>
     </form>
+    }     
+     
         
               </Card>
     </main>
-  </GrupoContextProvider>
 ); 
 
 };
