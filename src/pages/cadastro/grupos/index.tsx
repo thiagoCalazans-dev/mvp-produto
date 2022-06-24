@@ -2,7 +2,7 @@ import { IGrupo } from "../../../interface/Grupo";
 import { GrupoContextProvider } from "../../../context/grupo/provider";
 import Table from "../../../components/Table";
 import { Loading, TableLoading } from "../../../components/Loading";
-import { FormRegisterGrupo } from "../../../components/forms/Grupo/FormRegisterGrupo";
+import { FormGrupo } from "../../../components/forms/FormGrupo";
 import { useModal } from "../../../hooks/useModal";
 import { useGet } from "../../../hooks/useFetch";
 import { FormDetailsGrupo } from "../../../components/forms/Grupo/FormDetailsGrupo";
@@ -15,21 +15,26 @@ const Grupo = () => {
   const details = useModal();
   const router = useRouter()
   const [selectedData, setSelectedData] = useState<IGrupo>({} as IGrupo);
+ 
   const HandleDetailsClick = (grupo: IGrupo) => {
     setSelectedData(grupo);
-    details.openModal();
+    registration.openModal();
   };
 
-  console.log("asPath:" + router.asPath)
+
+  const handleCadastrarClick = () => {
+    setSelectedData({} as IGrupo);
+    registration.openModal();
+  };
+
 
   const { isLoading, error, data, isFetching } = useGet<IGrupo[]>(
     "grupos",
     "grupos"
   );
-  if (error) return "An error has occurred: " + error.message;
+  if (error) return "An error has occurred:" + error.message;
 
   return (
-    <GrupoContextProvider>
       <main className="w-full h-full flex flex-col justify-center items-center py-5 px-16">
         <Card className="flex flex-col gap-y-3 max-w-[900px]">
           <h1 className="font-bold text-center text-3xl">GRUPOS:</h1>
@@ -62,10 +67,10 @@ const Grupo = () => {
                         {item.descricao}
                       </Table.Data>
                       <Table.Data className="w-20 shrink text-center px-1">
-                        <Table.DetailsButton
+                        <button
+                        className="mx-1 hover:bg-brand-secondary-light"
                         onClick={() => router.push(`${router.asPath}/${item.id}`) }
-                          // onClick={() => HandleDetailsClick(item)}
-                        />
+                        >Link</button>
                           <Table.DetailsButton
                         // onClick={() => router.push(`${router.asPath}/${item.id}`) }
                         onClick={() => HandleDetailsClick(item)}
@@ -78,18 +83,17 @@ const Grupo = () => {
               </Table.Container>
             )}
           </div>
-          <button className="btn" onClick={registration.openModal}>
+          <button className="btn" onClick={handleCadastrarClick}>
             Cadastrar
           </button>
           <registration.Modal>
-            <FormRegisterGrupo
-              isFetching={isFetching}
+            <FormGrupo
+              initialData={selectedData}          
               closeModal={registration.closeModal}
             />
           </registration.Modal>
           <details.Modal>
-            <FormDetailsGrupo
-              isFetching={isFetching}
+            <FormDetailsGrupo     
               initialData={selectedData}
               closeModal={details.closeModal}
               urlParams={String(selectedData.id)}
@@ -97,7 +101,6 @@ const Grupo = () => {
           </details.Modal>
         </Card>
       </main>
-    </GrupoContextProvider>
   );
 };
 

@@ -2,15 +2,13 @@ import { useRouter } from "next/router";
 import { Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useQuery } from "react-query";
-import { setEnvironmentData } from "worker_threads";
+import { toast } from "react-toastify";
 import { Card } from "../../../components/Card";
-import { FormDetailsGrupo } from "../../../components/forms/Grupo/FormDetailsGrupo";
 import { Loading } from "../../../components/Loading";
 import { GrupoContextProvider } from "../../../context/grupo/provider";
-import { useGet, useGetById, useRemove, useUpdate } from "../../../hooks/useFetch";
+import {useGetById, useRemove, useUpdate } from "../../../hooks/useFetch";
 import { IGrupo } from "../../../interface/Grupo";
-import ajax from "../../../services/ajax";
+
 
 
 const GrupoDetail = () => {
@@ -31,36 +29,42 @@ useEffect(() => {
 const { register, handleSubmit, setValue, getValues } = useForm<IGrupo>({
     defaultValues: data,
   });
-  const { mutate: updateMutate, isLoading: updateLoading } = useUpdate(
-    "grupos",
-    `grupos/${id}`,
-    "Grupos alterado com sucesso",
   
-  );
 
-  const encaminhar = () => {
-    router.push('/cadastro/grupos')
+  const encaminhar =  () => {
+     router.push('/cadastro/grupos')
   }
 
-  const { mutate: removeMutate, isLoading: removeLoading } = useRemove(
+  const { updateLoading, updateMutateAsync } = useUpdate<IGrupo>(
     "grupos",
     "grupos",
-     encaminhar,
-     String(id),
+    String(id)
+  );
 
+  const { removeLoading, removeMutateAsync } = useRemove(
+    "grupos",
+    "grupos",
+    String(id)
   );
 
   
 
-  const onSubmit: SubmitHandler<IGrupo> = async (grupo) => {
-    await updateMutate(grupo)   
- 
-  };
+  const onSubmit: SubmitHandler<IGrupo> = async (data) => {
+      await updateMutateAsync(data).then(() => {
+        toast.success("Grupo alterado com sucesso");
+      })
+      .then(() => encaminhar())
+      .catch((error) => toast.error(error + "CATCH"));
+    }
 
   const HandleDeleteClick = async () => {
     const value = getValues
-    await removeMutate(value)
-    
+    await removeMutateAsync(value)
+      .then(() => {
+        toast.success("Grupo removido com sucesso");
+      })
+      .then(() => encaminhar())
+      .catch((error) => toast.error(error + "CATCH"));
   };
 
 return (

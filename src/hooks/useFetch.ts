@@ -6,14 +6,13 @@ import { queryClient } from "../services/queryClient";
 
 
 export const useGet = <T>(payload: string, url: string) => {
-  const { data, error, isLoading, isFetching } = useQuery<T, Error>(payload, async () => {
+ return  useQuery<T, Error>(payload, async () => {
     const { data } = await ajax.get(url);
     return data;
   });
 
-  return { data, error, isLoading, isFetching };
-}
 
+}
 
 export const useGetById = <T>(payload:string, baseUrl:string, id?:string | string[]) => {
   const { data, error, isLoading } = useQuery<T, Error>([payload, id], async () => {
@@ -24,49 +23,45 @@ export const useGetById = <T>(payload:string, baseUrl:string, id?:string | strin
   return { data, error, isLoading };
 }
 
-export const useCreate = <T>(payload: string,  url: string, onSuccessMessage:string, closeModal?: () => void) => {
-  return useMutation((data: T) => {
+export const useCreate = <T>(payload: string,  url: string) => {
+  const {isLoading: createLoading, mutateAsync: createMutateAsync }=  useMutation((data: T) => {
     return ajax.post(url, data)}, {
     onSuccess: () => {queryClient.invalidateQueries(payload);
-      toast.success(`${onSuccessMessage}`);
-      closeModal && closeModal();
    },
   onError: (error: Error) => {
-    toast.error(error.name)
-    console.log(error)
+     toast.error(error.message)
   }
   })
+  return {createLoading, createMutateAsync}
 } 
 
-export const useRemove = <T>(payload: string,  url: string, encaminhar: () => void, id?:string, closeModal?: () => void ) => {
-  return useMutation((data: T) => {
-    const fullUrl = `${url}/${id}`   
+export const useRemove = <T>(payload: string,  url: string, params:string) => {
+  const {isLoading: removeLoading, mutateAsync: removeMutateAsync } = useMutation((data: T) => {
+    const fullUrl = `${url}/${params}`   
     return ajax.delete(fullUrl, data)}, {
-      onSuccess: () => {queryClient.invalidateQueries(payload);
-      toast.success('Removido com sucesso');
-      closeModal && closeModal();
-      encaminhar && encaminhar()
+      onSuccess: () => {queryClient.invalidateQueries(payload);    
       },
-    onError: (error: Error) => {
-    toast.error('ocorreu um erro' + error.message)
-    console.log(error)
+
+    onError: (error: Error) => {  
+      toast.error(error.message)
     }
   },
   )
+  return {removeLoading, removeMutateAsync}
 }
 
-export const useUpdate = <T>(payload: string,  url: string, onSuccessMessage:string, closeModal?: () => void) => {
-  return useMutation((data: T) => {
-    return ajax.put(url, data)}, {
+export const useUpdate = <T>(payload: string,  url: string, params:string) => {
+  const {isLoading: updateLoading, mutateAsync: updateMutateAsync } = useMutation((data: T,) => {
+    const fullUrl = `${url}/${params}`   
+    return ajax.put(fullUrl, data)}, {
       onSuccess: () => {queryClient.invalidateQueries(payload);
-        toast.success(`${onSuccessMessage}`)
-        closeModal && closeModal();
-     },
-    onError: (error) => {
-      toast.error('ocorreu um erro')
-      console.log(error)
+            },
+            onError: (error: Error) => {  
+      toast.error(error.message)
     },
+  
   })
+  return {updateLoading, updateMutateAsync}
 } 
      
 

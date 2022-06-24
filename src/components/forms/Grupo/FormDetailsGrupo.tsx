@@ -1,51 +1,47 @@
 import { Trash } from "phosphor-react";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
 import { useRemove, useUpdate } from "../../../hooks/useFetch";
 import { IGrupo } from "../../../interface/Grupo";
 import { Loading } from "../../Loading";
 
 interface Iprops {
-  closeModal?: () => void;
-  initialData?: IGrupo 
+  closeModal: () => void;
+  initialData?: IGrupo;
   urlParams?: string;
-  isFetching?: boolean;
 }
 
 export const FormDetailsGrupo = ({
   closeModal,
   initialData,
   urlParams,
-  isFetching,
 }: Iprops) => {
   const { register, handleSubmit } = useForm<IGrupo>({
     defaultValues: initialData,
   });
-  const { mutate: updateMutate, isLoading: updateLoading } = useUpdate(
+  const { updateLoading, updateMutateAsync } = useUpdate(
     "grupos",
-    `grupos/${urlParams}`,
-    "Grupos alterado com sucesso",
-    closeModal
+    "grupos",
+   String(urlParams),
   );
 
-  const encaminhar = () => {
-    console.log("removeu")
-  }
-  const { mutate: removeMutate, isLoading: removeLoading } = useRemove(
-    "grupos",
-    `grupos/${urlParams}`,
-    encaminhar
-  );
+  const {
+    mutate: removeMutate,
+    isLoading: removeLoading,
+    isSuccess,
+    error,   
+  } = useRemove("grupos", "grupos", urlParams);
 
   const onSubmit: SubmitHandler<IGrupo> = async (grupo) => {
-    await updateMutate(grupo);    
- 
+    await updateMutate(grupo);
   };
 
   const HandleDeleteClick = async () => {
     await removeMutate(initialData);
-    !isFetching && closeModal && closeModal();
-  };
+     error && toast.error("error")
+    isSuccess && console.log(isSuccess)
+ };
 
   return (
     <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
