@@ -107,7 +107,7 @@ const Estoque = () => {
         </Table.Body>    
      </Table.Container>
     
-     <Modal><ul>
+     <Modal onCloseModal={() => console.log ("modal")}><ul>
       <li>{estoque.codigo}</li>
       <li>{estoque.produto}</li>
       <li>{estoque.quantidade}</li>
