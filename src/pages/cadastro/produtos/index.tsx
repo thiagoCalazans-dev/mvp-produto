@@ -77,7 +77,7 @@ const Produto = () => {
         </button>
       </Card>
       <section>
-        <Modal title="Cadastro Produto">
+        <Modal title="Cadastro Produto" onCloseModal={() => console.log("ASDIUAS")}>
           <FormProduto closeOnSubmit={closeModal}/>
         </Modal>
       </section>

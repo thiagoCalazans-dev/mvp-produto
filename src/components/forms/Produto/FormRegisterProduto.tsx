@@ -7,7 +7,6 @@ import {
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ProdutoContext } from "../../../context/produto/context";
 import { useCreate, useGetById } from "../../../hooks/useFetch";
-import { useModal } from "../../../hooks/useModal";
 import { IGrupo } from "../../../interface/Grupo";
 import { IFormProduto, IProduto } from "../../../interface/Produto";
 import { Loading } from "../../Loading";

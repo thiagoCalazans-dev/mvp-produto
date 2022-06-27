@@ -26,9 +26,8 @@ const Grupo = () => {
   );
   if (error) return "An error has occurred:" + error.message;
 
-  
-  const totalPages = Number(grupos?.length) / pageSize
-  
+ 
+
 
   const HandleDetailsClick = (grupo: IGrupo) => {
     setSelectedData(grupo) 

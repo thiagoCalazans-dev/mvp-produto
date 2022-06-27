@@ -5,17 +5,11 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useState,
 } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { toast } from "react-toastify";
-import { GrupoContext } from "../../../context/grupo/context";
 import { ProdutoContext } from "../../../context/produto/context";
-import { useCreate, useGetById, useUpdate } from "../../../hooks/useFetch";
-import { useModal } from "../../../hooks/useModal";
-import { IFormGrupo, IGrupo } from "../../../interface/Grupo";
+import { useUpdate } from "../../../hooks/useFetch";
 import { IFormProduto, IProduto } from "../../../interface/Produto";
-import ajax from "../../../services/ajax";
 import { Loading } from "../../Loading";
 import { GrupoSearchTable } from "../../SearchTables/GrupoSearchTable";
 
