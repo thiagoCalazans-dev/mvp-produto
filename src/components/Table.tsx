@@ -29,13 +29,13 @@ interface DataIProps {
 }
 
 const Container = ({ children, className }: IProps) => {
-  return <table className={`table-auto w-full h-full flex flex-col border-base rounded-lg shrink ${className}`}>{children}</table>;
+  return <table className={`table-auto w-full h-full flex flex-col border-base rounded-lg shrink overflow-hidden ${className}`}>{children}</table>;
 };
 
 const Head = ({ children }: IProps) => {
   return (
     <thead>
-      <tr className="flex h-auto w-full border-b-base rounded-t-lg bg-brand-primary text-light-100 truncate">
+      <tr className="flex h-auto w-full border-b-base  bg-brand-primary text-light-100 truncate">
         {children}
       </tr>
     </thead>
@@ -56,7 +56,7 @@ const Data = ({ className, children }: DataIProps) => {
 
 const Row = ({ children, onDoubleClick }: RowIProps) => {
   return (
-    <tr className="flex text-ellipsis h-auto border-x-[1px] border-b-[1px] border-light-700 dark:border-dark-200 hover:bg-base-dark whitespace-nowrap" onDoubleClick={onDoubleClick}>
+    <tr className="flex text-ellipsis h-auto  border-b-base border-light-700 dark:border-dark-200 hover:bg-base-dark whitespace-nowrap" onDoubleClick={onDoubleClick}>
       {children}
     </tr>
   );
@@ -94,7 +94,7 @@ const DeleteButton = ({ onClick }: ButtonIProps) => {
 export const DetailsButton = ({ onClick }: ButtonIProps) => {
   return (
     <button
-      onClick={onClick}
+      onClick={() => onClick}
       className="hover:bg-brand-primary transition-all rounded-full p-1"
     >
       <ChatCenteredText />

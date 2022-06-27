@@ -1,4 +1,5 @@
 import { Trash } from "phosphor-react";
+import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useCreate, useRemove, useUpdate } from "../../hooks/useFetch";
@@ -6,17 +7,29 @@ import { IGrupo } from "../../interface/Grupo";
 import { Loading } from "../Loading";
 
 interface Iprops {
-  closeModal: () => void;
+  onCloseModal: () => void;
   initialData?: IGrupo;
+  selectedGrupoByParams?: IGrupo;
 }
 
 export const FormGrupo = ({
-  closeModal,
+  onCloseModal,
   initialData = {} as IGrupo,
+  selectedGrupoByParams,
 }: Iprops) => {
-  const { register, handleSubmit, watch } = useForm<IGrupo>({
+
+  const { register, handleSubmit, watch, setValue } = useForm<IGrupo>({
     defaultValues: initialData,
   });
+
+  useEffect(() => {
+    if (selectedGrupoByParams) {
+     setValue("id", selectedGrupoByParams.id)
+     setValue("codigo", selectedGrupoByParams.codigo)
+     setValue("descricao", selectedGrupoByParams.descricao)  
+     console.log("ta em loop?")       
+     }
+    }, [selectedGrupoByParams]);
 
   const params = watch("id");
 
@@ -42,27 +55,26 @@ export const FormGrupo = ({
       .then(() => {
         toast.success("Grupo removido com sucesso");
       })
-      .then(() => closeModal())
+      .then(() => onCloseModal())
       .catch((error) => toast.error(error + "CATCH"));
   };
 
   const onSubmit: SubmitHandler<IGrupo> = async (data) => {
     if (data.id) {
-      await updateMutateAsync(data).then(() => {
-        toast.success("Grupo alterado com sucesso");
-      })
-      .then(() => closeModal())
-      .catch((error) => toast.error(error + "CATCH"));
-    }
-     else {
+      await updateMutateAsync(data)
+        .then(() => {
+          toast.success("Grupo alterado com sucesso");
+        })
+        .then(() => onCloseModal())
+        .catch((error) => toast.error(error + "CATCH"));
+    } else {
       await createMutateAsync(data)
-      .then(() => {
-        toast.success("Grupo cadastrado com sucesso");
-      })
-      .then(() => closeModal())
-      .catch((error) => toast.error(error + "CATCH"));
+        .then(() => {
+          toast.success("Grupo cadastrado com sucesso");
+        })
+        .then(() => onCloseModal())
+        .catch((error) => toast.error(error + "CATCH"));
     }
-   
   };
 
   return (
@@ -96,34 +108,30 @@ export const FormGrupo = ({
           <Loading />
         </button>
       ) : (
-      <FormButtons id={params} DeleteClick={HandleDeleteClick}/>
+        <FormButtons id={params} DeleteClick={HandleDeleteClick} />
       )}
     </form>
   );
 };
 
-
 interface IFormButtonsProps {
-  id: number
-  DeleteClick: () => void
+  id: number;
+  DeleteClick: () => void;
 }
 
-
-const FormButtons = ({id, DeleteClick}: IFormButtonsProps) => {
+const FormButtons = ({ id, DeleteClick }: IFormButtonsProps) => {
   return (
     <div className="flex w-full gap-x-2 mt-4">
-    <button className="btn flex-1">
-      {id ? "Alterar" : "Salvar"}
-    </button>
-    {id && (
-      <button
-        type="button"
-        onClick={() => DeleteClick()}
-        className="btn-danger"
-      >
-        <Trash />
-      </button>
-    )}
-  </div>
-  )
-}
+      <button className="btn flex-1">{id ? "Alterar" : "Salvar"}</button>
+      {id && (
+        <button
+          type="button"
+          onClick={() => DeleteClick()}
+          className="btn-danger"
+        >
+          <Trash />
+        </button>
+      )}
+    </div>
+  );
+};

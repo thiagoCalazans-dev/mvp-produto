@@ -1,8 +1,15 @@
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { Container } from "../../components/Container";
 import Table from "../../components/Table";
-import { Document, Page } from 'react-pdf'
-import React, { useState } from 'react';
-import { PDFViewer } from "../../reports/EstoqueReport";
+import { useModal } from "../../hooks/useModal";
+
+interface Estoque {
+  id: number;
+    codigo: number;
+    produto: string;
+    quantidade: string;
+}
 
 const TableContent = [
   {
@@ -67,31 +74,45 @@ const TableContent = [
   },
 ]
 
-const Estoque = () => { 
+const Estoque = () => {
+  const {Modal, setModal} = useModal() 
+  const [estoque, setEstoque] = useState<Estoque>({} as Estoque)
+  const router = useRouter();
+
+  const handleOptionsClick = (item: Estoque) => {
+    setEstoque(item),
+    router.push(`/relatorios/estoque/?id=${item.id}`, undefined, { shallow: true })
+    setModal(true)
+  }
 
     return(  
 
-      <PDFViewer/>
-    // <Container>
-    //   <Table.Container>
-    //     <Table.Head>
-    //       <Table.TitleColumns title="Código" />
-    //       <Table.TitleColumns title="Produto" />
-    //       <Table.TitleColumns title="Quantidade" />
-    //     </Table.Head>
-    //     <Table.Body className="grow">
-          
-    //          { TableContent.map((item) => (
-    //           <Table.Row key={item.id}>
-    //           <Table.Data>{item.codigo}</Table.Data>
-    //           <Table.Data>{item.produto}</Table.Data>
-    //           <Table.Data>{item.quantidade}</Table.Data>
-    //           </Table.Row>
-    //          )) }
-          
-    //     </Table.Body>    
-    //  </Table.Container>
-    // </Container>
+   <Container>
+      <Table.Container>
+        <Table.Head>
+          <Table.TitleColumns className="w-20" title="Código" />
+          <Table.TitleColumns className="grow text-left" title="Produto" />
+          <Table.TitleColumns className="w-32 text-center" title="Quantidade" />
+          <Table.TitleColumns className="w-32 text-center" title="Options" />
+        </Table.Head>
+        <Table.Body className="grow">          
+             { TableContent.map((item) => (
+              <Table.Row key={item.id} >
+              <Table.Data className="w-20 text-center border-r-base">{item.codigo}</Table.Data>
+              <Table.Data className="grow border-r-base">{item.produto}</Table.Data>
+              <Table.Data className="w-32 text-center">{item.quantidade}</Table.Data>
+              <Table.Data className="w-32 text-center"><button className="hover:bg-brand-secondary" onClick={() => handleOptionsClick(item)}>Open Modal</button></Table.Data>
+              </Table.Row>
+             )) }                      
+        </Table.Body>    
+     </Table.Container>
+    
+     <Modal><ul>
+      <li>{estoque.codigo}</li>
+      <li>{estoque.produto}</li>
+      <li>{estoque.quantidade}</li>
+      </ul></Modal>
+    </Container>
 
   );
 };

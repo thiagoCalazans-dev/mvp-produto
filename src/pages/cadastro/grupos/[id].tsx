@@ -1,126 +1,42 @@
 import { useRouter } from "next/router";
-import { Trash } from "phosphor-react";
-import { useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { ArrowBendUpLeft} from "phosphor-react";
 import { Card } from "../../../components/Card";
+import { Container } from "../../../components/Container";
+import { FormGrupo } from "../../../components/forms/FormGrupo";
 import { Loading } from "../../../components/Loading";
-import { GrupoContextProvider } from "../../../context/grupo/provider";
-import {useGetById, useRemove, useUpdate } from "../../../hooks/useFetch";
+import { useGetById} from "../../../hooks/useFetch";
 import { IGrupo } from "../../../interface/Grupo";
 
-
-
 const GrupoDetail = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const { data: grupo, isLoading } = useGetById<IGrupo>("grupos", "grupos", id);
 
-const router = useRouter()
-const {id} = router.query
-const {data, isLoading} = useGetById<IGrupo>("grupos", "grupos", id)
-
-useEffect(() => {
-    if (data) {
-        setValue("id", data.id)
-        setValue("codigo", data.codigo)
-        setValue("descricao", data.descricao)         
-        }
-}, [data]);
-
-
-const { register, handleSubmit, setValue, getValues } = useForm<IGrupo>({
-    defaultValues: data,
-  });
-  
-
-  const encaminhar =  () => {
-     router.push('/cadastro/grupos')
-  }
-
-  const { updateLoading, updateMutateAsync } = useUpdate<IGrupo>(
-    "grupos",
-    "grupos",
-    String(id)
-  );
-
-  const { removeLoading, removeMutateAsync } = useRemove(
-    "grupos",
-    "grupos",
-    String(id)
-  );
-
-  
-
-  const onSubmit: SubmitHandler<IGrupo> = async (data) => {
-      await updateMutateAsync(data).then(() => {
-        toast.success("Grupo alterado com sucesso");
-      })
-      .then(() => encaminhar())
-      .catch((error) => toast.error(error + "CATCH"));
-    }
-
-  const HandleDeleteClick = async () => {
-    const value = getValues
-    await removeMutateAsync(value)
-      .then(() => {
-        toast.success("Grupo removido com sucesso");
-      })
-      .then(() => encaminhar())
-      .catch((error) => toast.error(error + "CATCH"));
+  const sendToGrupos = () => {
+    router.push("/cadastro/grupos");
   };
 
-return (
-    <main className="w-full h-full flex flex-col justify-center items-center py-5 px-16">
-      <Card className="flex w-auto h-auto flex-col gap-y-3 items-center max-w-[900px]">
-        <h1 className="font-bold text-center text-3xl">Grupo:</h1>  
-        {isLoading ?  <Loading/> :   <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
-      <div className="form-control">
-        <label className="label" htmlFor="id">
-          Id:
-        </label>
-        <input
-          disabled
-          className="input"
-          id="id"
-          type="text"
-          {...register("id")}
-        />
-      </div>
-      <div className="form-control">
-        <label className="label" htmlFor="">
-          Código:
-        </label>
-        <input className="input" type="text" {...register("codigo")} />
-      </div>
-      <div className="form-control">
-        <label className="label" htmlFor="">
-          Descrição:
-        </label>
-        <input className="input" type="text" {...register("descricao")} />
-      </div>
-      <div className="flex w-full gap-x-2 mt-4">
-        {updateLoading || removeLoading ? (
-          <Loading />
-        ) : (
-          <>
-            <button className="btn flex-1">Editar</button>
-            <button
-              type="button"
-              onClick={() => HandleDeleteClick()}
-              className="btn-danger"
-            >
-              <Trash />
-            </button>
-          </>
-        )}
-      </div>
-    </form>
-    }     
-     
-        
-              </Card>
-    </main>
-); 
-
+  return (
+    <Container>
+            {isLoading ? (
+            <Loading />
+          ) : (
+      <Card className="h-auto w-auto max-w-[900px] overflow-hidden rounded-lg bg-brand-secondary dark:bg-dark-500  border-base px-5 pb-5">
+        <button
+          onClick={sendToGrupos}
+          className="bg-brand-primary transition-all rounded-full p-1"
+        >
+          <ArrowBendUpLeft size={20} weight="bold" color="#FFFFFF" />
+        </button>
+        <h1 className="font-bold text-center text-3xl tracking-wide">Grupo</h1>    
+      
+            <FormGrupo
+              onCloseModal={sendToGrupos}
+              selectedGrupoByParams={grupo}
+            />    
+        </Card>)}
+    </Container>
+  );
 };
-
 
 export default GrupoDetail;
