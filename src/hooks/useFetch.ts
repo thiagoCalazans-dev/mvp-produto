@@ -5,10 +5,15 @@ import ajax from "../services/ajax";
 import { queryClient } from "../services/queryClient";
 
 
-export const useGet = <T>(payload: string, url: string) => {
+export const useGet = <T>(payload: string, url: string, params?: string) => {
  return  useQuery<T, Error>(payload, async () => {
+    if (params) {
+      const fullUrl = `${url}${params}`
+      const { data } = await ajax.get(fullUrl); 
+       return data;  
+    }     
     const { data } = await ajax.get(url);
-    return data;
+    return data
   });
 
 
@@ -19,7 +24,6 @@ export const useGetById = <T>(payload:string, baseUrl:string, id?:string | strin
     const { data } = await ajax.get(`${baseUrl}/${id}`);
     return data;
   });
-
   return { data, error, isLoading };
 }
 

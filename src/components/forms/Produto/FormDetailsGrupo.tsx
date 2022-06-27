@@ -30,7 +30,7 @@ export const FormProduto = ({closeOnSubmit}: IProps) => {
   //hooks
   const { register, handleSubmit, setValue } = useForm<IProduto>();
   
-  const { mutate, isLoading} = useUpdate<IFormProduto>(
+  const { updateLoading, updateMutateAsync} = useUpdate<IFormProduto>(
     "produtos",
     `grupos/${selectedGrupo.id}/produtos`,
     "Produto adcionado com sucesso"
@@ -39,7 +39,7 @@ export const FormProduto = ({closeOnSubmit}: IProps) => {
 //functions
 
 const onSubmit: SubmitHandler<IFormProduto> = async (data) => {
-  mutate(data);
+  updateMutateAsync(data);
   closeOnSubmit();
  }; 
 
@@ -92,9 +92,9 @@ const onSubmit: SubmitHandler<IFormProduto> = async (data) => {
           </label>
           <input className="input" type="text" {...register("descricao")} />
         </div> 
-        <button className="btn mt-4">{isLoading ? <Loading/> : `Salvar`}</button>
+        <button className="btn mt-4">{updateLoading ? <Loading/> : `Salvar`}</button>
       </form>
-       <Modal title="Pesquisa Grupos">
+       <Modal title="Pesquisa Grupos" onCloseModal={() => console.log ('teste')}>
         <GrupoSearchTable/>
       </Modal>
     </div>

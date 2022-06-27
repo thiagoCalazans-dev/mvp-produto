@@ -1,21 +1,34 @@
 import { IGrupo } from "../../../interface/Grupo";
-import { GrupoContextProvider } from "../../../context/grupo/provider";
 import Table from "../../../components/Table";
 import { Loading, TableLoading } from "../../../components/Loading";
 import { FormGrupo } from "../../../components/forms/FormGrupo";
 import { useModal } from "../../../hooks/useModal";
 import { useGet } from "../../../hooks/useFetch";
-import { useContextualRouting } from 'next-use-contextual-routing';
 import { useState } from "react";
 import { Card } from "../../../components/Card";
 import { useRouter } from "next/router";
-import { ChatCenteredText, TreeStructure } from "phosphor-react";
+import { ChatCenteredText } from "phosphor-react";
 import { Container } from "../../../components/Container";
 
 const Grupo = () => {
   const {openModal, closeModal, Modal} = useModal();
   const router = useRouter();
+  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(2)
   const [selectedData, setSelectedData] = useState<IGrupo>({} as IGrupo);
+
+
+
+  const { isLoading, error, data: grupos, isFetching } = useGet<IGrupo[]>(
+    "grupos",
+    "grupos",
+    `?PaginaNumero=${page}&PaginaTamanho=${pageSize}`
+  );
+  if (error) return "An error has occurred:" + error.message;
+
+  
+  const totalPages = Number(grupos?.length) / pageSize
+  
 
   const HandleDetailsClick = (grupo: IGrupo) => {
     setSelectedData(grupo) 
@@ -39,13 +52,7 @@ const Grupo = () => {
         });
       closeModal()
     }
-
-  const { isLoading, error, data: grupos, isFetching } = useGet<IGrupo[]>(
-    "grupos",
-    "grupos"
-  );
-  if (error) return "An error has occurred:" + error.message;
-
+ 
   return (
     <Container>
       <Card className="flex flex-col gap-y-3 max-w-[900px]">
@@ -90,6 +97,7 @@ const Grupo = () => {
                 ))}
               </Table.Body>
               {!isLoading && isFetching && <TableLoading />}
+            <Table.Footer leftClick={() => console.log(page)} rigthClick={() => setPage(page + 1)} page={page} totalPages={10}/>
             </Table.Container>
           )}
         </div>

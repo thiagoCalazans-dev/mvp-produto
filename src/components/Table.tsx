@@ -6,7 +6,11 @@ interface IProps {
   className?: string
 } 
 interface IFooterProps {
-  className?: string
+  className?: string,
+  rigthClick: () => void,
+  leftClick: () => void,
+  page: number,
+  totalPages: number,
 }
 
 interface RowIProps {
@@ -47,7 +51,7 @@ const TitleColumns = ({ className, title }: TitleIProps) => {
 };
 
 const Body = ({ children, className }: IProps) => {
-  return <tbody className={className}>{children}</tbody>;
+  return <tbody className={`flex-1 ${className}`}>{children}</tbody>;
 };
 
 const Data = ({ className, children }: DataIProps) => {
@@ -61,19 +65,21 @@ const Row = ({ children, onDoubleClick }: RowIProps) => {
     </tr>
   );
 };
-const Footer = ({ className }: IFooterProps) => {
-  return <tfoot className="h-auto border-t-base rounded-b-lg bg-brand-primary text-light-100 truncate">
+const Footer = ({leftClick, rigthClick, page, totalPages}: IFooterProps) => {
+  return <tfoot className="h-auto rounded-b-lg bg-brand-primary text-light-100 truncate py-1 px-3">
     <tr className="flex justify-center items-center" >
       <td>
-        <button className="bg-light-300 p-1 rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none
+        <button onClick={leftClick}
+        className="bg-light-300 p-1 rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none
             transition duration-200"><ArrowFatLineLeft  size={16} color="#00466f" weight="fill"/></button>    
       </td>
-      <td className="flex gap-x-2 items-center justify-center h-auto">
-        <input type="text" className="input w-7 h-7 item-center"/>
-        <span>de x.length</span> 
+      <td className="flex flex-1 items-center justify-center h-full">
+        <span className="h-full">página {page} de {totalPages}</span> 
       </td>
       <td>
-        <button className="bg-light-300 p-1 rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none
+        <button 
+        onClick={rigthClick}
+        className="bg-light-300 p-1 rounded-lg shadow-md hover:bg-opacity-30 focus:outline-none
             transition duration-200"><ArrowFatLineRight  size={16} color="#00466f" weight="fill"/></button>    
       </td>
     </tr>
