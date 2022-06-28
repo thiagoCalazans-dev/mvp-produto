@@ -1,23 +1,35 @@
-import { useRouter } from "next/router";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
 import ajax from "../services/ajax";
 import { queryClient } from "../services/queryClient";
 
 
-export const useGet = <T>(payload: string, url: string, params?: string) => {
- return  useQuery<T, Error>(payload, async () => {
-    if (params) {
-      const fullUrl = `${url}${params}`
-      const { data } = await ajax.get(fullUrl); 
-       return data;  
-    }     
+export const useGet = <T>(payload: string, url: string) => {
+ return  useQuery<T, Error>(payload, async () => {   
     const { data } = await ajax.get(url);
     return data
   });
-
-
 }
+
+export const  fetchPagination = async (url:string, page:number, pageSize: number) => {
+  const { data } =await ajax.get(url + `?PaginaNumero=${page}&PaginaTamanho=${pageSize}`);
+  return data
+}
+
+export const preFetchPagination = (url:string, page:number, pageSize:number) => {
+  queryClient.prefetchQuery([url, page + 1], () =>
+  fetchPagination(url, page+1, pageSize)
+  )
+}
+
+export const useGetWithPagination = <T>(payload: string, url: string, page: number, pageSize:number) => {
+  return useQuery<T, Error>(
+  [payload, page],
+  () => fetchPagination(url, page, pageSize),
+  { keepPreviousData: true}
+)
+}
+
 
 export const useGetById = <T>(payload:string, baseUrl:string, id?:string | string[]) => {
   const { data, error, isLoading } = useQuery<T, Error>([payload, id], async () => {

@@ -3,12 +3,14 @@ import Table from "../../../components/Table";
 import { Loading, TableLoading } from "../../../components/Loading";
 import { FormGrupo } from "../../../components/forms/FormGrupo";
 import { useModal } from "../../../hooks/useModal";
-import { useGet } from "../../../hooks/useFetch";
-import { useState } from "react";
+import { fetchPagination, preFetchPagination, useGet, useGetWithPagination } from "../../../hooks/useFetch";
+import { useEffect, useState } from "react";
 import { Card } from "../../../components/Card";
 import { useRouter } from "next/router";
 import { ChatCenteredText } from "phosphor-react";
 import { Container } from "../../../components/Container";
+import { queryClient } from "../../../services/queryClient";
+import axios from "axios";
 
 const Grupo = () => {
   const {openModal, closeModal, Modal} = useModal();
@@ -16,17 +18,34 @@ const Grupo = () => {
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(2)
   const [selectedData, setSelectedData] = useState<IGrupo>({} as IGrupo);
+  const [totalPages, setTotalPages] = useState(10)
 
-
-
-  const { isLoading, error, data: grupos, isFetching } = useGet<IGrupo[]>(
+  const { isLoading, error, data: grupos, isFetching} = useGetWithPagination<IGrupo[]>(
     "grupos",
     "grupos",
-    `?PaginaNumero=${page}&PaginaTamanho=${pageSize}`
+    page,
+    pageSize
   );
-  if (error) return "An error has occurred:" + error.message;
 
+  useEffect(() => {
+    if (grupos) {
+      preFetchPagination("grupos",
+      page,
+      pageSize)
+    }
+  }, [grupos, page, queryClient])
+
+  if (error) return "An error has occurred:" + error.message;
  
+  const nextPage = () => {
+    if (page < totalPages)
+    setPage(page + 1)  
+  }
+  
+  const previousPage = () => {
+    if (page > 1)
+    setPage(page - 1)  
+  }  
 
 
   const HandleDetailsClick = (grupo: IGrupo) => {
@@ -94,15 +113,14 @@ const Grupo = () => {
                     </Table.Data>
                   </Table.Row>
                 ))}
-              </Table.Body>
-              {!isLoading && isFetching && <TableLoading />}
-            <Table.Footer leftClick={() => console.log(page)} rigthClick={() => setPage(page + 1)} page={page} totalPages={10}/>
+              </Table.Body>            
+            <Table.Footer leftClick={previousPage} rigthClick={nextPage} page={page} totalPages={10}/>
             </Table.Container>
           )}
         </div>
         <button className="btn" onClick={handleCadastrarClick}>
           Cadastrar
-        </button>  
+        </button>       
         { router.query.id &&   
         <Modal onCloseModal={handleCloseModal}>
           <FormGrupo
