@@ -2,7 +2,7 @@ import { Trash } from "phosphor-react";
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useCreate, useRemove, useUpdate } from "../../hooks/useFetch";
+import { useFetch } from "../../hooks/useFetch";
 import { IGrupo } from "../../interface/Grupo";
 import { Loading } from "../Loading";
 
@@ -33,47 +33,34 @@ export const FormGrupo = ({
 
   const params = watch("id");
 
-  const { createLoading, createMutateAsync } = useCreate<IGrupo>(
-    "grupos",
-    "grupos"
-  );
-
-  const { updateLoading, updateMutateAsync } = useUpdate<IGrupo>(
-    "grupos",
-    "grupos",
-    String(params)
-  );
-
-  const { removeLoading, removeMutateAsync } = useRemove<IGrupo>(
-    "grupos",
-    "grupos",
-    String(params)
-  );
+  const {createAsync, createLoading, removeAsync, removeLoading, updateAsync, updateLoading } = useFetch<IGrupo>("grupos",
+  "grupos",
+  String(params))
 
   const HandleDeleteClick = async () => {
-    await removeMutateAsync(initialData)
+    await removeAsync(initialData)
       .then(() => {
         toast.success("Grupo removido com sucesso");
       })
       .then(() => onCloseModal())
-      .catch((error) => toast.error(error + "CATCH"));
+      .catch((error: Error) => toast.error(error + "CATCH"));
   };
 
   const onSubmit: SubmitHandler<IGrupo> = async (data) => {
     if (data.id) {
-      await updateMutateAsync(data)
+      await updateAsync(data)
         .then(() => {
           toast.success("Grupo alterado com sucesso");
         })
         .then(() => onCloseModal())
-        .catch((error) => toast.error(error + "CATCH"));
+        .catch((error: Error) => toast.error(error + "CATCH"));
     } else {
-      await createMutateAsync(data)
+      await createAsync(data)
         .then(() => {
           toast.success("Grupo cadastrado com sucesso");
         })
         .then(() => onCloseModal())
-        .catch((error) => toast.error(error + "CATCH"));
+        .catch((error: Error) => toast.error(error + "CATCH"));
     }
   };
 
