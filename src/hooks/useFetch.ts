@@ -62,6 +62,7 @@ const useUpdate = <T>() => {
     return { data, error, isLoading };
   }
 
+
   const {createLoading, createAsync} = useCreate()
   const {removeLoading, removeAsync} = useRemove()
   const {updateLoading, updateAsync} = useUpdate()

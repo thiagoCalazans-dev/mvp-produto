@@ -3,52 +3,31 @@ import Table from "../../../components/Table";
 import { Loading } from "../../../components/Loading";
 import { FormGrupo } from "../../../components/forms/FormGrupo";
 import { useModal } from "../../../hooks/useModal";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Card } from "../../../components/Card";
 import { useRouter } from "next/router";
 import { ChatCenteredText } from "phosphor-react";
 import { Container } from "../../../components/Container";
 import { queryClient } from "../../../services/queryClient";
-import ajax from "../../../services/ajax";
 import { usePagination } from "../../../hooks/usePagination";
 
 const Grupo = () => {
   const { openModal, closeModal, Modal } = useModal();
   const router = useRouter();
   const [selectedData, setSelectedData] = useState<IGrupo>({} as IGrupo);
-  const [totalPages, setTotalPages] = useState(10);
 
-
-  const y = {"PaginaAtual":1,"PaginaTotal":3,"PaginaTamanho":5,"TotalDeItens":15,"HaAnterior":false,"HaProxima":true}
 
   const {
     preFetchPagination,
     useGetWithPagination,
-    nextPage,
-    previousPage,
+    paginationInfos,
     page,
-    pageSize,
-  } = usePagination("grupos", "grupos", totalPages);
+    getPaginationInfos,
+    TableFooter,
+  } = usePagination<IGrupo[]>("grupos", "grupos");
 
-  const { isLoading, error, data: grupos } = useGetWithPagination<IGrupo[]>();
+  const { isLoading, error, data: grupos } = useGetWithPagination();
 
-  useEffect(() => {
-    if (grupos) {
-      preFetchPagination();
-    }
-  }, [grupos, page, queryClient]);
-
-  useEffect(() => {
-    const getPaginationFromHeaders = async (url: string) => {
-      const x = await ajax
-        .get(url + `?PaginaNumero=${page}&PaginaTamanho=${pageSize}`)
-        .then((res) => {
-          const x =  Object.values(res.headers)[1];  
-                
-        });
-    };
-    getPaginationFromHeaders("grupos")
-  }, []);
 
   const HandleDetailsClick = (grupo: IGrupo) => {
     setSelectedData(grupo);
@@ -120,12 +99,7 @@ const Grupo = () => {
                   </Table.Row>
                 ))}
               </Table.Body>
-              <Table.Footer
-                leftClick={previousPage}
-                rigthClick={nextPage}
-                page={page}
-                totalPages={totalPages}
-              />
+              <TableFooter />
             </Table.Container>
           )}
         </div>
